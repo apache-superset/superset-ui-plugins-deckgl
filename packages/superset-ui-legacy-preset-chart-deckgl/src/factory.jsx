@@ -104,7 +104,16 @@ export function createDeckGLComponent(getLayer, getPoints) {
 
 export function createCategoricalDeckGLComponent(getLayer, getPoints) {
   function Component(props) {
-    const { formData, payload, setControlValue, onAddFilter, setTooltip, viewport } = props;
+    const {
+      formData,
+      payload,
+      setControlValue,
+      onAddFilter,
+      setTooltip,
+      viewport,
+      width,
+      height,
+    } = props;
 
     return (
       <CategoricalDeckGLContainer
@@ -117,6 +126,8 @@ export function createCategoricalDeckGLComponent(getLayer, getPoints) {
         onAddFilter={onAddFilter}
         setTooltip={setTooltip}
         getPoints={getPoints}
+        height={height}
+        height={width}
       />
     );
   }

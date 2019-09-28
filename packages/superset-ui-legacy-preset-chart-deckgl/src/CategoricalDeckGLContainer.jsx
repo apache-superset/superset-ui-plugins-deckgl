@@ -74,6 +74,8 @@ const propTypes = {
   payload: PropTypes.object.isRequired,
   onAddFilter: PropTypes.func,
   setTooltip: PropTypes.func,
+  height: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
 };
 
 export default class CategoricalDeckGLContainer extends React.PureComponent {
@@ -243,6 +245,8 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
           mapboxApiAccessToken={this.props.mapboxApiKey}
           mapStyle={this.props.formData.mapbox_style}
           setControlValue={this.props.setControlValue}
+          width={this.props.width}
+          height={this.props.height}
         >
           <Legend
             categories={this.state.categories}

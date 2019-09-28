@@ -61,7 +61,11 @@ export function getLayer(formData, payload, onAddFilter, setTooltip) {
   return new PathLayer({
     id: `path-layer-${fd.slice_id}`,
     data,
+    getColor: d => d.color,
+    getPath: d => d.path,
+    getWidth: d => d.width,
     rounded: true,
+    widthMinPixels: 2,
     widthScale: 1,
     ...commonLayerProps(fd, setTooltip, setTooltipContent),
   });
@@ -72,7 +76,6 @@ function getPoints(data) {
   data.forEach(d => {
     points = points.concat(d.path);
   });
-
   return points;
 }
 

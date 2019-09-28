@@ -125,7 +125,6 @@ export function getLayer(formData, payload, onAddFilter, setTooltip, selected, o
     extruded: fd.extruded,
     getElevation: d => getElevation(d, colorScaler),
     elevationScale: fd.multiplier,
-    fp64: true,
     ...commonLayerProps(fd, setTooltip, tooltipContentGenerator, onSelect),
   });
 }
@@ -256,7 +255,7 @@ class DeckGLPolygon extends React.Component {
   }
 
   render() {
-    const { payload, formData, setControlValue } = this.props;
+    const { payload, formData, setControlValue, height, width } = this.props;
     const { start, end, getStep, values, disabled, viewport } = this.state;
 
     const fd = formData;
@@ -280,6 +279,8 @@ class DeckGLPolygon extends React.Component {
           mapboxApiAccessToken={payload.data.mapboxApiKey}
           mapStyle={formData.mapbox_style}
           setControlValue={setControlValue}
+          width={width}
+          height={height}
           aggregation
         >
           {formData.metric !== null && (

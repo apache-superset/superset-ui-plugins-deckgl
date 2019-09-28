@@ -40,10 +40,6 @@ function getPoints(data) {
 function setTooltipContent(o) {
   return (
     <div className="deckgl-tooltip">
-      <TooltipRow
-        label={`${t('Longitude and Latitude')}: `}
-        value={`${o.object.position[0]}, ${o.object.position[1]}`}
-      />
       <TooltipRow label={`${t('Weight')}: `} value={`${o.object.weight}`} />
     </div>
   );
@@ -177,7 +173,7 @@ class DeckGLScreenGrid extends React.PureComponent {
   }
 
   render() {
-    const { formData, payload, setControlValue } = this.props;
+    const { formData, payload, setControlValue, width, height } = this.props;
 
     return (
       <div>
@@ -194,6 +190,8 @@ class DeckGLScreenGrid extends React.PureComponent {
           mapboxApiAccessToken={payload.data.mapboxApiKey}
           mapStyle={formData.mapbox_style}
           setControlValue={setControlValue}
+          width={width}
+          height={height}
           aggregation
         />
       </div>

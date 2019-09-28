@@ -36,21 +36,12 @@ function getPoints(data) {
 }
 
 function setTooltipContent(formData) {
-  return o => (
-    <div className="deckgl-tooltip">
-      <TooltipRow
-        label={`${t('Start (Longitude, Latitude)')}: `}
-        value={`${o.object.sourcePosition[0]}, ${o.object.sourcePosition[1]}`}
-      />
-      <TooltipRow
-        label={`${t('End (Longitude, Latitude)')}: `}
-        value={`${o.object.targetPosition[0]}, ${o.object.targetPosition[1]}`}
-      />
-      {formData.dimension && (
+  return o =>
+    {formData.dimension &&
+      <div className="deckgl-tooltip">
         <TooltipRow label={`${formData.dimension}: `} value={`${o.object.cat_color}`} />
-      )}
-    </div>
-  );
+      </div>
+    }
 }
 
 export function getLayer(fd, payload, onAddFilter, setTooltip) {

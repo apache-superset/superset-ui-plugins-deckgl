@@ -30,10 +30,6 @@ import TooltipRow from '../../TooltipRow';
 function setTooltipContent(o) {
   return (
     <div className="deckgl-tooltip">
-      <TooltipRow
-        label={`${t('Longitude and Latitude')}: `}
-        value={`${o.object.position[0]}, ${o.object.position[1]}`}
-      />
       <TooltipRow label={`${t('Height')}: `} value={`${o.object.elevationValue}`} />
     </div>
   );
