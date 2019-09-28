@@ -40,7 +40,7 @@ import Legend from './components/Legend';
 import { hexToRGB } from './utils/colors';
 import { getPlaySliderParams } from './utils/time';
 import sandboxedEval from './utils/sandbox';
-import { fitViewport} from './layers/common';
+import { fitViewport } from './layers/common';
 
 const { getScale } = CategoricalColorNamespace;
 
@@ -132,18 +132,12 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
     const { start, end, getStep, values, disabled } = getPlaySliderParams(timestamps, granularity);
     const points = props.getPoints(features);
     const { width, height } = props;
-    const sizedViewState = { ...props.initialViewState, width, height };
-    const initialViewState = props.formData.autozoom
-      ? fitViewport(sizedViewState, points)
-      : props.initialViewState;
-
     return {
       start,
       end,
       getStep,
       values,
       disabled,
-      initialViewState,
       selected: [],
       lastClick: 0,
       formData: props.payload.form_data,
@@ -233,32 +227,30 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
 
   render() {
     return (
-      <div style={{ position: 'relative' }}>
-        <AnimatableDeckGLContainer
-          getLayers={this.getLayers}
-          start={this.state.start}
-          end={this.state.end}
-          getStep={this.state.getStep}
-          values={this.state.values}
-          onValuesChange={this.onValuesChange}
-          disabled={this.state.disabled}
-          initialViewState={this.state.initialViewState}
-          oninitialViewStateChange={this.oninitialViewStateChange}
-          mapboxApiAccessToken={this.props.mapboxApiKey}
-          mapStyle={this.props.formData.mapbox_style}
-          setControlValue={this.props.setControlValue}
-          width={this.props.width}
-          height={this.props.height}
-        >
-          <Legend
-            categories={this.state.categories}
-            toggleCategory={this.toggleCategory}
-            showSingleCategory={this.showSingleCategory}
-            position={this.props.formData.legend_position}
-            format={this.props.formData.legend_format}
-          />
-        </AnimatableDeckGLContainer>
-      </div>
+      <AnimatableDeckGLContainer
+        getLayers={this.getLayers}
+        start={this.state.start}
+        end={this.state.end}
+        getStep={this.state.getStep}
+        values={this.state.values}
+        onValuesChange={this.onValuesChange}
+        disabled={this.state.disabled}
+        initialViewState={this.state.initialViewState}
+        oninitialViewStateChange={this.oninitialViewStateChange}
+        mapboxApiAccessToken={this.props.mapboxApiKey}
+        mapStyle={this.props.formData.mapbox_style}
+        setControlValue={this.props.setControlValue}
+        width={this.props.width}
+        height={this.props.height}
+      >
+        <Legend
+          categories={this.state.categories}
+          toggleCategory={this.toggleCategory}
+          showSingleCategory={this.showSingleCategory}
+          position={this.props.formData.legend_position}
+          format={this.props.formData.legend_format}
+        />
+      </AnimatableDeckGLContainer>
     );
   }
 }

@@ -99,7 +99,9 @@ export default class AnimatableDeckGLContainer extends React.Component {
           // leave space for the play slider
           height={disabled ? height : height - PLAYSLIDER_HEIGHT}
           width={width}
-        />
+        >
+          {children}
+        </DeckGLContainer>
         {!disabled && (
           <PlaySlider
             start={start}
@@ -110,7 +112,6 @@ export default class AnimatableDeckGLContainer extends React.Component {
             onChange={onValuesChange}
           />
         )}
-        {children}
       </div>
     );
   }

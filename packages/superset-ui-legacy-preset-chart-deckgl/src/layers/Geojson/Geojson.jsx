@@ -136,7 +136,6 @@ const propTypes = {
   formData: PropTypes.object.isRequired,
   payload: PropTypes.object.isRequired,
   setControlValue: PropTypes.func.isRequired,
-  viewport: PropTypes.object.isRequired,
   onAddFilter: PropTypes.func,
   setTooltip: PropTypes.func,
 };
@@ -146,15 +145,15 @@ const defaultProps = {
 };
 
 function deckGeoJson(props) {
-  const { formData, payload, setControlValue, onAddFilter, setTooltip, viewport } = props;
+  const { formData, payload, setControlValue, onAddFilter, setTooltip, initialViewState } = props;
 
   const layer = getLayer(formData, payload, onAddFilter, setTooltip);
 
   return (
     <DeckGLContainer
       mapboxApiAccessToken={payload.data.mapboxApiKey}
-      viewport={viewport}
       layers={[layer]}
+      initialViewState={initialViewState}
       mapStyle={formData.mapbox_style}
       setControlValue={setControlValue}
     />

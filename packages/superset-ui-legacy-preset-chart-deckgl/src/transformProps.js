@@ -21,14 +21,15 @@ const NOOP = () => {};
 export default function transformProps(chartProps) {
   const { width, height, rawFormData, queryData, hooks } = chartProps;
   const { onAddFilter = NOOP, setControlValue = NOOP, setTooltip = NOOP } = hooks;
+
   return {
     formData: rawFormData,
+    initialViewState: { ...rawFormData.viewport },
     onAddFilter,
     payload: queryData,
     setControlValue,
-    setTooltip,
     height,
+    setTooltip,
     width,
-    initialViewState: { ...rawFormData.viewport },
   };
 }

@@ -75,6 +75,7 @@ export function getLayer(formData, payload, onAddFilter, setTooltip) {
     stroked: false,
     ...commonLayerProps(fd, setTooltip, setTooltipContent(fd)),
   });
+
   return layer;
 }
 

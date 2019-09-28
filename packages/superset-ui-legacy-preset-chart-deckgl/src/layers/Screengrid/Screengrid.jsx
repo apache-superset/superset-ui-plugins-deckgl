@@ -34,7 +34,6 @@ import { commonLayerProps } from '../common';
 import TooltipRow from '../../TooltipRow';
 
 function getPoints(data) {
-  console.log("YOYO", data);
   return data.map(d => d.position);
 }
 
@@ -86,7 +85,6 @@ const propTypes = {
   formData: PropTypes.object.isRequired,
   payload: PropTypes.object.isRequired,
   setControlValue: PropTypes.func.isRequired,
-  viewport: PropTypes.object.isRequired,
   onAddFilter: PropTypes.func,
   setTooltip: PropTypes.func,
 };
@@ -103,7 +101,6 @@ class DeckGLScreenGrid extends React.PureComponent {
 
     this.getLayers = this.getLayers.bind(this);
     this.onValuesChange = this.onValuesChange.bind(this);
-    this.onViewportChange = this.onViewportChange.bind(this);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -130,7 +127,6 @@ class DeckGLScreenGrid extends React.PureComponent {
       getStep,
       values,
       disabled,
-      viewport,
       selected: [],
       lastClick: 0,
       formData: props.payload.form_data,
@@ -142,10 +138,6 @@ class DeckGLScreenGrid extends React.PureComponent {
       // eslint-disable-next-line react/no-access-state-in-setstate
       values: Array.isArray(values) ? values : [values, values + this.state.getStep(values)],
     });
-  }
-
-  onViewportChange(viewport) {
-    this.setState({ viewport });
   }
 
   getLayers(values) {
@@ -175,6 +167,7 @@ class DeckGLScreenGrid extends React.PureComponent {
     return (
       <div>
         <AnimatableDeckGLContainer
+          initialViewState={this.props.initialViewState}
           getLayers={this.getLayers}
           start={this.state.start}
           end={this.state.end}
@@ -182,8 +175,6 @@ class DeckGLScreenGrid extends React.PureComponent {
           values={this.state.values}
           onValuesChange={this.onValuesChange}
           disabled={this.state.disabled}
-          viewport={this.state.viewport}
-          onViewportChange={this.onViewportChange}
           mapboxApiAccessToken={payload.data.mapboxApiKey}
           mapStyle={formData.mapbox_style}
           setControlValue={setControlValue}

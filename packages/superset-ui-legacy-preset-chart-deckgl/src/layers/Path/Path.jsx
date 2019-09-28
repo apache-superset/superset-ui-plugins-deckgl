@@ -76,6 +76,7 @@ function getPoints(data) {
   data.forEach(d => {
     points = points.concat(d.path);
   });
+
   return points;
 }
 

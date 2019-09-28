@@ -39,7 +39,6 @@ const propTypes = {
   formData: PropTypes.object.isRequired,
   payload: PropTypes.object.isRequired,
   setControlValue: PropTypes.func.isRequired,
-  viewport: PropTypes.object.isRequired,
   onAddFilter: PropTypes.func,
   setTooltip: PropTypes.func,
   onSelect: PropTypes.func,
@@ -54,7 +53,6 @@ class DeckMulti extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = { subSlicesLayers: {} };
-    this.onViewportChange = this.onViewportChange.bind(this);
   }
 
   componentDidMount() {
@@ -70,12 +68,8 @@ class DeckMulti extends React.PureComponent {
     }
   }
 
-  onViewportChange(viewport) {
-    this.setState({ viewport });
-  }
-
-  loadLayers(formData, payload, viewport) {
-    this.setState({ subSlicesLayers: {}, viewport });
+  loadLayers(formData, payload) {
+    this.setState({ subSlicesLayers: {} });
     payload.data.slices.forEach(subslice => {
       // Filters applied to multi_deck are passed down to underlying charts
       // note that dashboard contextual information (filter_immune_slices and such) aren't
@@ -125,8 +119,6 @@ class DeckMulti extends React.PureComponent {
     return (
       <DeckGLContainer
         mapboxApiAccessToken={payload.data.mapboxApiKey}
-        viewport={this.state.viewport || this.props.viewport}
-        onViewportChange={this.onViewportChange}
         layers={layers}
         mapStyle={formData.mapbox_style}
         setControlValue={setControlValue}

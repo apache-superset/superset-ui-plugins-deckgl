@@ -23,9 +23,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StaticMap } from 'react-map-gl';
-import DeckGL, { MapController } from 'deck.gl';
+import DeckGL from 'deck.gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { isEqual } from 'lodash';
 import './css/deckgl.css';
 
 const TICK = 250; // milliseconds
@@ -36,12 +35,14 @@ const propTypes = {
   setControlValue: PropTypes.func,
   mapStyle: PropTypes.string,
   mapboxApiAccessToken: PropTypes.string.isRequired,
-  onViewportChange: PropTypes.func,
+  children: PropTypes.node,
+  height: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
 };
 const defaultProps = {
   mapStyle: 'light',
-  onViewportChange: () => {},
   setControlValue: () => {},
+  children: null,
 };
 
 export default class DeckGLContainer extends React.Component {
@@ -60,7 +61,7 @@ export default class DeckGLContainer extends React.Component {
     clearInterval(this.state.timer);
   }
 
-  onViewStateChange({ oldViewState, viewState }) {
+  onViewStateChange({ viewState }) {
     this.setState({ viewState, lastUpdate: Date.now() });
   }
 
@@ -86,24 +87,28 @@ export default class DeckGLContainer extends React.Component {
   }
 
   render() {
-    const { viewport, width, height } = this.props;
+    const { children, width, height } = this.props;
     const { viewState } = this.state;
     const layers = this.layers();
+
     return (
-      <DeckGL
-        width={width}
-        height={height}
-        layers={layers}
-        controller={true}
-        viewState={viewState}
-        onViewStateChange={this.onViewStateChange}
-        initWebGLParameters
-      >
-        <StaticMap
-          mapStyle={this.props.mapStyle}
-          mapboxApiAccessToken={this.props.mapboxApiAccessToken}
-        />
-      </DeckGL>
+      <div style={{ position: 'relative', width, height }}>
+        <DeckGL
+          width={width}
+          height={height}
+          layers={layers}
+          viewState={viewState}
+          onViewStateChange={this.onViewStateChange}
+          initWebGLParameters
+          controller
+        >
+          <StaticMap
+            mapStyle={this.props.mapStyle}
+            mapboxApiAccessToken={this.props.mapboxApiAccessToken}
+          />
+        </DeckGL>
+        {children}
+      </div>
     );
   }
 }

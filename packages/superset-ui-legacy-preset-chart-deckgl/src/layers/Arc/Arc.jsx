@@ -20,7 +20,6 @@
  */
 import { ArcLayer } from 'deck.gl';
 import React from 'react';
-import { t } from '@superset-ui/translation';
 import { commonLayerProps } from '../common';
 import { createCategoricalDeckGLComponent } from '../../factory';
 import TooltipRow from '../../TooltipRow';
@@ -37,11 +36,11 @@ function getPoints(data) {
 
 function setTooltipContent(formData) {
   return o =>
-    {formData.dimension &&
+    formData.dimension && (
       <div className="deckgl-tooltip">
         <TooltipRow label={`${formData.dimension}: `} value={`${o.object.cat_color}`} />
       </div>
-    }
+    );
 }
 
 export function getLayer(fd, payload, onAddFilter, setTooltip) {

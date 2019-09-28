@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Superset Legacy Chart - deck.gl",
   "sideEffects": true,
+  "scripts": {
+    "lint": "eslint ./src"
+  },
   "main": "lib/index.js",
   "module": "esm/index.js",
   "files": [
