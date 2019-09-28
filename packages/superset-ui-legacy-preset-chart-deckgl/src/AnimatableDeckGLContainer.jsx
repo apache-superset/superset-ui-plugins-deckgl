@@ -24,13 +24,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DeckGLContainer from './DeckGLContainer';
+import SingleLayerDeckGLContainer from './SingleLayerDeckGLContainer';
 import PlaySlider from './components/PlaySlider';
 
 const PLAYSLIDER_HEIGHT = 20; // px
 
 const propTypes = {
-  getLayers: PropTypes.func.isRequired,
+  getLayer: PropTypes.func.isRequired,
+  getPoints: PropTypes.func.isRequired,
   start: PropTypes.number.isRequired,
   end: PropTypes.number.isRequired,
   getStep: PropTypes.func,
@@ -69,29 +70,34 @@ export default class AnimatableDeckGLContainer extends React.Component {
 
   render() {
     const {
-      start,
-      end,
-      getStep,
-      disabled,
       aggregation,
       children,
-      getLayers,
+      disabled,
+      end,
+      formData,
+      getLayer,
+      getPoints,
+      getStep,
       height,
-      width,
-      values,
-      onValuesChange,
       initialViewState,
-      setControlValue,
       mapStyle,
       mapboxApiAccessToken,
+      onValuesChange,
+      payload,
+      setControlValue,
+      start,
+      values,
+      width,
     } = this.props;
-    const layers = getLayers(values);
 
     return (
       <div>
-        <DeckGLContainer
+        <SingleLayerDeckGLContainer
           initialViewState={initialViewState}
-          layers={layers}
+          getLayer={getLayer}
+          getPoints={getPoints}
+          payload={payload}
+          formData={formData}
           setControlValue={setControlValue}
           mapStyle={mapStyle}
           mapboxApiAccessToken={mapboxApiAccessToken}
@@ -101,7 +107,7 @@ export default class AnimatableDeckGLContainer extends React.Component {
           width={width}
         >
           {children}
-        </DeckGLContainer>
+        </SingleLayerDeckGLContainer>
         {!disabled && (
           <PlaySlider
             start={start}

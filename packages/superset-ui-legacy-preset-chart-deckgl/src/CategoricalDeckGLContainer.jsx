@@ -40,7 +40,6 @@ import Legend from './components/Legend';
 import { hexToRGB } from './utils/colors';
 import { getPlaySliderParams } from './utils/time';
 import sandboxedEval from './utils/sandbox';
-import { fitViewport } from './layers/common';
 
 const { getScale } = CategoricalColorNamespace;
 
@@ -89,7 +88,7 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
     super(props);
     this.state = this.getStateFromProps(props);
 
-    this.getLayers = this.getLayers.bind(this);
+    this.getLayer = this.getLayer.bind(this);
     this.onValuesChange = this.onValuesChange.bind(this);
     this.oninitialViewStateChange = this.oninitialViewStateChange.bind(this);
     this.toggleCategory = this.toggleCategory.bind(this);
@@ -130,7 +129,6 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
       props.payload.form_data.time_grain_sqla || props.payload.form_data.granularity || 'P1D';
 
     const { start, end, getStep, values, disabled } = getPlaySliderParams(timestamps, granularity);
-    const points = props.getPoints(features);
     const { width, height } = props;
     return {
       start,
@@ -145,7 +143,7 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
     };
   }
 
-  getLayers(values) {
+  getLayer(values) {
     const { getLayer, payload, formData: fd, onAddFilter, setTooltip } = this.props;
     let features = payload.data.features ? [...payload.data.features] : [];
 
@@ -176,7 +174,7 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
       data: { ...payload.data, features },
     };
 
-    return [getLayer(fd, filteredPayload, onAddFilter, setTooltip)];
+    return getLayer(fd, filteredPayload, onAddFilter, setTooltip);
   }
 
   addColor(data, fd) {
@@ -228,13 +226,16 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
   render() {
     return (
       <AnimatableDeckGLContainer
-        getLayers={this.getLayers}
+        getLayer={this.props.getLayer}
+        getPoints={this.props.getPoints}
+        payload={this.props.payload}
         start={this.state.start}
         end={this.state.end}
         getStep={this.state.getStep}
         values={this.state.values}
         onValuesChange={this.onValuesChange}
         disabled={this.state.disabled}
+        formData={this.props.formData}
         initialViewState={this.state.initialViewState}
         oninitialViewStateChange={this.oninitialViewStateChange}
         mapboxApiAccessToken={this.props.mapboxApiKey}

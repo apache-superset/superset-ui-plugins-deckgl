@@ -71,7 +71,15 @@ function setTooltipContent(formData) {
   };
 }
 
-export function getLayer(formData, payload, onAddFilter, setTooltip, selected, onSelect, filters) {
+export function getLayer(
+  formData,
+  payload,
+  onAddFilter,
+  setTooltip,
+  selected = [],
+  onSelect = () => {},
+  filters = [],
+) {
   const fd = formData;
   const fc = fd.fill_color_picker;
   const sc = fd.stroke_color_picker;
@@ -242,7 +250,7 @@ class DeckGLPolygon extends React.Component {
       filters,
     );
 
-    return [layer];
+    return layer;
   }
 
   render() {
@@ -256,31 +264,32 @@ class DeckGLPolygon extends React.Component {
     const buckets = getBuckets(formData, payload.data.features, accessor);
 
     return (
-      <div style={{ position: 'relative' }}>
-        <AnimatableDeckGLContainer
-          getLayers={this.getLayers}
-          start={start}
-          end={end}
-          getStep={getStep}
-          values={values}
-          onValuesChange={this.onValuesChange}
-          disabled={disabled}
-          mapboxApiAccessToken={payload.data.mapboxApiKey}
-          mapStyle={formData.mapbox_style}
-          setControlValue={setControlValue}
-          width={width}
-          height={height}
-          aggregation
-        >
-          {formData.metric !== null && (
-            <Legend
-              categories={buckets}
-              position={formData.legend_position}
-              format={formData.legend_format}
-            />
-          )}
-        </AnimatableDeckGLContainer>
-      </div>
+      <AnimatableDeckGLContainer
+        getLayer={getLayer}
+        getPoints={getPoints}
+        start={start}
+        formData={formData}
+        payload={payload}
+        end={end}
+        getStep={getStep}
+        values={values}
+        onValuesChange={this.onValuesChange}
+        disabled={disabled}
+        mapboxApiAccessToken={payload.data.mapboxApiKey}
+        mapStyle={formData.mapbox_style}
+        setControlValue={setControlValue}
+        width={width}
+        height={height}
+        aggregation
+      >
+        {formData.metric !== null && (
+          <Legend
+            categories={buckets}
+            position={formData.legend_position}
+            format={formData.legend_format}
+          />
+        )}
+      </AnimatableDeckGLContainer>
     );
   }
 }

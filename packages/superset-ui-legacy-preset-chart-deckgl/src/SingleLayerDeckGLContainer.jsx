@@ -22,12 +22,14 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import DeckGLContainer from './DeckGLContainer';
+import { fitViewport } from './layers/common';
 
 const propTypes = {
   getLayer: PropTypes.func.isRequired,
   getPoints: PropTypes.func.isRequired,
-  features: PropTypes.array,
+  payload: PropTypes.object,
   filters: PropTypes.arrayOf(PropTypes.func),
 };
 const defaultProps = {
@@ -39,8 +41,18 @@ export default class SingleLayerDeckGLContainer extends React.Component {
     super(props);
     this.state = {
       layer: this.computeLayer(props),
-      initialViewState: getAutoZoomViewState(props, getPoint),
+      initialViewState: this.getAutoZoomViewState(),
     };
+  }
+  getAutoZoomViewState() {
+    const { initialViewState, width, height, payload, formData, getPoints } = this.props;
+    const { autozoom } = formData;
+    const sizedViewState = { ...initialViewState, width, height };
+    const data = payload.data;
+    const features = data.features ? data.features : data;
+    const points = getPoints(features);
+
+    return autozoom ? fitViewport(sizedViewState, points) : viewState;
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -53,14 +65,18 @@ export default class SingleLayerDeckGLContainer extends React.Component {
   }
 
   computeLayer(props) {
-    const { formData, payload, onAddFilter, setTooltip } = props;
-
+    const { formData, payload, onAddFilter, setTooltip, getLayer } = props;
     return getLayer(formData, payload, onAddFilter, setTooltip);
   }
 
   render() {
+    console.log();
     return (
-      <DeckGLContainer {...this.props} layers={this.props.layer}>
+      <DeckGLContainer
+        {...this.props}
+        layers={[this.state.layer]}
+        initialViewState={this.state.initialViewState}
+      >
         {this.props.children}
       </DeckGLContainer>
     );

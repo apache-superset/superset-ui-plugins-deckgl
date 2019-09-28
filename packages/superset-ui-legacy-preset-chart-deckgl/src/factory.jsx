@@ -26,7 +26,6 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
 
 import SingleLayerDeckGLContainer from './SingleLayerDeckGLContainer';
 import CategoricalDeckGLContainer from './CategoricalDeckGLContainer';
@@ -43,32 +42,19 @@ const defaultProps = {
   initialViewState: null,
 };
 
-function getAutoZoomViewState(features, viewState, width, height) {
-  const sizedViewState = { ...viewState, width, height };
-  const points = getPoints(features);
-
-  return props.formData.autozoom ? fitViewport(sizedViewState, points) : viewState;
-}
-function getAutoZoomViewStateFromProps(props) {
-  const features = props.payload.data.features || [];
-  const { initialViewState, width, height } = props;
-
-  return getAutoZoomViewState(features, initialViewState, width, height);
-}
-
 export function createDeckGLComponent(getLayer, getPoints) {
   // Higher order component
   class Component extends React.PureComponent {
     render() {
-      const { layer } = this.state;
       const { formData, payload } = this.props;
 
       return (
         <SingleLayerDeckGLContainer
           {...this.props}
-          initialViewState={this.state.initialViewState}
+          initialViewState={this.props.initialViewState}
           mapboxApiAccessToken={payload.data.mapboxApiKey}
-          layers={[layer]}
+          getLayer={getLayer}
+          getPoints={getPoints}
           mapStyle={formData.mapbox_style}
         />
       );
@@ -82,18 +68,12 @@ export function createDeckGLComponent(getLayer, getPoints) {
 
 export function createCategoricalDeckGLComponent(getLayer, getPoints) {
   class Component extends React.PureComponent {
-    constructor(props) {
-      super(props);
-      this.state = {
-        initialViewState: getAutoZoomViewState(props),
-      };
-    }
     render() {
       return (
         <CategoricalDeckGLContainer
-          {...props}
-          initialViewState={this.state.initialViewState}
-          mapboxApiKey={props.payload.data.mapboxApiKey}
+          {...this.props}
+          initialViewState={this.props.initialViewState}
+          mapboxApiKey={this.props.payload.data.mapboxApiKey}
           getLayer={getLayer}
           getPoints={getPoints}
         />

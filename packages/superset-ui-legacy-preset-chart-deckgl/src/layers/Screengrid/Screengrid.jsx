@@ -99,7 +99,7 @@ class DeckGLScreenGrid extends React.PureComponent {
 
     this.state = DeckGLScreenGrid.getDerivedStateFromProps(props);
 
-    this.getLayers = this.getLayers.bind(this);
+    this.getFilters = this.getFilters.bind(this);
     this.onValuesChange = this.onValuesChange.bind(this);
   }
 
@@ -140,7 +140,7 @@ class DeckGLScreenGrid extends React.PureComponent {
     });
   }
 
-  getLayers(values) {
+  getFilters(values) {
     const filters = [];
 
     // time filter
@@ -150,39 +150,31 @@ class DeckGLScreenGrid extends React.PureComponent {
       filters.push(d => d.__timestamp >= values[0] && d.__timestamp < values[1]);
     }
 
-    const layer = getLayer(
-      this.props.formData,
-      this.props.payload,
-      this.props.onAddFilter,
-      this.props.setTooltip,
-      filters,
-    );
-
-    return [layer];
+    return filters;
   }
 
   render() {
     const { formData, payload, setControlValue, width, height } = this.props;
 
     return (
-      <div>
-        <AnimatableDeckGLContainer
-          initialViewState={this.props.initialViewState}
-          getLayers={this.getLayers}
-          start={this.state.start}
-          end={this.state.end}
-          getStep={this.state.getStep}
-          values={this.state.values}
-          onValuesChange={this.onValuesChange}
-          disabled={this.state.disabled}
-          mapboxApiAccessToken={payload.data.mapboxApiKey}
-          mapStyle={formData.mapbox_style}
-          setControlValue={setControlValue}
-          width={width}
-          height={height}
-          aggregation
-        />
-      </div>
+      <AnimatableDeckGLContainer
+        initialViewState={this.props.initialViewState}
+        getLayer={this.props.getLayer}
+        payload={payload}
+        formData={formData}
+        start={this.state.start}
+        end={this.state.end}
+        getStep={this.state.getStep}
+        values={this.state.values}
+        onValuesChange={this.onValuesChange}
+        disabled={this.state.disabled}
+        mapboxApiAccessToken={payload.data.mapboxApiKey}
+        mapStyle={formData.mapbox_style}
+        setControlValue={setControlValue}
+        width={width}
+        height={height}
+        aggregation
+      />
     );
   }
 }
