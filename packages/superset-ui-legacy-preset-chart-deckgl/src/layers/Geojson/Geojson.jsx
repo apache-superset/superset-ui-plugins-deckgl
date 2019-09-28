@@ -148,11 +148,6 @@ const defaultProps = {
 function deckGeoJson(props) {
   const { formData, payload, setControlValue, onAddFilter, setTooltip, viewport } = props;
 
-  // TODO get this to work
-  // if (formData.autozoom) {
-  //   viewport = common.fitViewport(viewport, geojsonExtent(payload.data.features));
-  // }
-
   const layer = getLayer(formData, payload, onAddFilter, setTooltip);
 
   return (

@@ -34,7 +34,7 @@ import Legend from '../../components/Legend';
 import TooltipRow from '../../TooltipRow';
 import { getBuckets, getBreakPointColorScaler } from '../../utils';
 
-import { commonLayerProps, fitViewport } from '../common';
+import { commonLayerProps } from '../common';
 import { getPlaySliderParams } from '../../utils/time';
 import sandboxedEval from '../../utils/sandbox';
 
@@ -172,10 +172,6 @@ class DeckGLPolygon extends React.Component {
       props.payload.form_data.time_grain_sqla || props.payload.form_data.granularity || 'P1D';
 
     const { start, end, getStep, values, disabled } = getPlaySliderParams(timestamps, granularity);
-
-    const viewport = props.formData.autozoom
-      ? fitViewport(props.viewport, getPoints(features))
-      : props.viewport;
 
     return {
       start,

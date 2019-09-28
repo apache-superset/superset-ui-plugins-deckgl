@@ -31,7 +31,7 @@ import './css/deckgl.css';
 const TICK = 250; // milliseconds
 
 const propTypes = {
-  viewport: PropTypes.object.isRequired,
+  initialViewState: PropTypes.object.isRequired,
   layers: PropTypes.array.isRequired,
   setControlValue: PropTypes.func,
   mapStyle: PropTypes.string,
@@ -51,21 +51,9 @@ export default class DeckGLContainer extends React.Component {
     this.onViewStateChange = this.onViewStateChange.bind(this);
     // This has to be placed after this.tick is bound to this
     this.state = {
-      previousViewport: props.viewport,
       timer: setInterval(this.tick, TICK),
-      viewState: props.viewport,
+      viewState: props.initialViewState,
     };
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.viewport !== prevState.viewport) {
-      return {
-        viewport: { ...nextProps.viewport },
-        previousViewport: prevState.viewport,
-      };
-    }
-
-    return null;
   }
 
   componentWillUnmount() {

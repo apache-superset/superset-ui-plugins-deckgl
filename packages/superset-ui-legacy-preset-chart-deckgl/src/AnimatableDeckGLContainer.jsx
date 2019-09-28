@@ -37,12 +37,12 @@ const propTypes = {
   values: PropTypes.array.isRequired,
   aggregation: PropTypes.bool,
   disabled: PropTypes.bool,
-  viewport: PropTypes.object.isRequired,
+  initialViewState: PropTypes.object.isRequired,
   children: PropTypes.node,
   mapStyle: PropTypes.string,
   mapboxApiAccessToken: PropTypes.string.isRequired,
   setControlValue: PropTypes.func,
-  onViewportChange: PropTypes.func,
+  oninitialViewStateChange: PropTypes.func,
   onValuesChange: PropTypes.func,
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
@@ -53,18 +53,18 @@ const defaultProps = {
   disabled: false,
   mapStyle: 'light',
   setControlValue: () => {},
-  onViewportChange: () => {},
+  oninitialViewStateChange: () => {},
   onValuesChange: () => {},
 };
 
 export default class AnimatableDeckGLContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.onViewportChange = this.onViewportChange.bind(this);
+    this.oninitialViewStateChange = this.oninitialViewStateChange.bind(this);
   }
 
-  onViewportChange(viewport) {
-    this.props.onViewportChange(viewport);
+  oninitialViewStateChange(initialViewState) {
+    this.props.oninitialViewStateChange(initialViewState);
   }
 
   render() {
@@ -80,7 +80,7 @@ export default class AnimatableDeckGLContainer extends React.Component {
       width,
       values,
       onValuesChange,
-      viewport,
+      initialViewState,
       setControlValue,
       mapStyle,
       mapboxApiAccessToken,
@@ -90,12 +90,12 @@ export default class AnimatableDeckGLContainer extends React.Component {
     return (
       <div>
         <DeckGLContainer
-          viewport={viewport}
+          initialViewState={initialViewState}
           layers={layers}
           setControlValue={setControlValue}
           mapStyle={mapStyle}
           mapboxApiAccessToken={mapboxApiAccessToken}
-          onViewportChange={this.onViewportChange}
+          oninitialViewStateChange={this.oninitialViewStateChange}
           // leave space for the play slider
           height={disabled ? height : height - PLAYSLIDER_HEIGHT}
           width={width}

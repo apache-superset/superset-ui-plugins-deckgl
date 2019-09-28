@@ -40,7 +40,7 @@ import Legend from './components/Legend';
 import { hexToRGB } from './utils/colors';
 import { getPlaySliderParams } from './utils/time';
 import sandboxedEval from './utils/sandbox';
-import { fitViewport } from './layers/common';
+import { fitViewport} from './layers/common';
 
 const { getScale } = CategoricalColorNamespace;
 
@@ -68,7 +68,7 @@ const propTypes = {
   formData: PropTypes.object.isRequired,
   mapboxApiKey: PropTypes.string.isRequired,
   setControlValue: PropTypes.func.isRequired,
-  viewport: PropTypes.object.isRequired,
+  initialViewState: PropTypes.object.isRequired,
   getLayer: PropTypes.func.isRequired,
   getPoints: PropTypes.func.isRequired,
   payload: PropTypes.object.isRequired,
@@ -91,7 +91,7 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
 
     this.getLayers = this.getLayers.bind(this);
     this.onValuesChange = this.onValuesChange.bind(this);
-    this.onViewportChange = this.onViewportChange.bind(this);
+    this.oninitialViewStateChange = this.oninitialViewStateChange.bind(this);
     this.toggleCategory = this.toggleCategory.bind(this);
     this.showSingleCategory = this.showSingleCategory.bind(this);
   }
@@ -108,8 +108,8 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
     });
   }
 
-  onViewportChange(viewport) {
-    this.setState({ viewport });
+  oninitialViewStateChange(initialViewState) {
+    this.setState({ initialViewState });
   }
 
   getStateFromProps(props, state) {
@@ -130,10 +130,12 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
       props.payload.form_data.time_grain_sqla || props.payload.form_data.granularity || 'P1D';
 
     const { start, end, getStep, values, disabled } = getPlaySliderParams(timestamps, granularity);
-
-    const viewport = props.formData.autozoom
-      ? fitViewport(props.viewport, props.getPoints(features))
-      : props.viewport;
+    const points = props.getPoints(features);
+    const { width, height } = props;
+    const sizedViewState = { ...props.initialViewState, width, height };
+    const initialViewState = props.formData.autozoom
+      ? fitViewport(sizedViewState, points)
+      : props.initialViewState;
 
     return {
       start,
@@ -141,7 +143,7 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
       getStep,
       values,
       disabled,
-      viewport,
+      initialViewState,
       selected: [],
       lastClick: 0,
       formData: props.payload.form_data,
@@ -240,8 +242,8 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
           values={this.state.values}
           onValuesChange={this.onValuesChange}
           disabled={this.state.disabled}
-          viewport={this.state.viewport}
-          onViewportChange={this.onViewportChange}
+          initialViewState={this.state.initialViewState}
+          oninitialViewStateChange={this.oninitialViewStateChange}
           mapboxApiAccessToken={this.props.mapboxApiKey}
           mapStyle={this.props.formData.mapbox_style}
           setControlValue={this.props.setControlValue}

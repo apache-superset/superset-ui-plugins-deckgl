@@ -29,6 +29,6 @@ export default function transformProps(chartProps) {
     setTooltip,
     height,
     width,
-    viewport: { ...rawFormData.viewport },
+    initialViewState: { ...rawFormData.viewport },
   };
 }

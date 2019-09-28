@@ -30,15 +30,14 @@ import { isEqual } from 'lodash';
 
 import DeckGLContainer from './DeckGLContainer';
 import CategoricalDeckGLContainer from './CategoricalDeckGLContainer';
-import { fitViewport } from './layers/common';
 
 const propTypes = {
   formData: PropTypes.object.isRequired,
   payload: PropTypes.object.isRequired,
   setControlValue: PropTypes.func.isRequired,
-  viewport: PropTypes.object.isRequired,
   onAddFilter: PropTypes.func,
   setTooltip: PropTypes.func,
+  initialViewState: PropTypes.object,
 };
 const defaultProps = {
   onAddFilter() {},
@@ -51,14 +50,9 @@ export function createDeckGLComponent(getLayer, getPoints) {
     constructor(props) {
       super(props);
       const originalViewport = props.viewport;
-      const viewport = props.formData.autozoom
-        ? fitViewport(originalViewport, getPoints(props.payload.data.features))
-        : originalViewport;
       this.state = {
-        viewport,
         layer: this.computeLayer(props),
       };
-      this.onViewportChange = this.onViewportChange.bind(this);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -70,10 +64,6 @@ export function createDeckGLComponent(getLayer, getPoints) {
       }
     }
 
-    onViewportChange(viewport) {
-      this.setState({ viewport });
-    }
-
     computeLayer(props) {
       const { formData, payload, onAddFilter, setTooltip } = props;
 
@@ -81,17 +71,18 @@ export function createDeckGLComponent(getLayer, getPoints) {
     }
 
     render() {
-      const { formData, payload, setControlValue } = this.props;
-      const { layer, viewport } = this.state;
+      const { formData, payload, setControlValue, width, height, initialViewState } = this.props;
+      const { layer } = this.state;
 
       return (
         <DeckGLContainer
           mapboxApiAccessToken={payload.data.mapboxApiKey}
-          viewport={viewport}
+          initialViewState={initialViewState}
           layers={[layer]}
           mapStyle={formData.mapbox_style}
           setControlValue={setControlValue}
-          onViewportChange={this.onViewportChange}
+          height={height}
+          width={width}
         />
       );
     }
@@ -110,7 +101,7 @@ export function createCategoricalDeckGLComponent(getLayer, getPoints) {
       setControlValue,
       onAddFilter,
       setTooltip,
-      viewport,
+      initialViewState,
       width,
       height,
     } = props;
@@ -120,14 +111,14 @@ export function createCategoricalDeckGLComponent(getLayer, getPoints) {
         formData={formData}
         mapboxApiKey={payload.data.mapboxApiKey}
         setControlValue={setControlValue}
-        viewport={viewport}
+        initialViewState={initialViewState}
         getLayer={getLayer}
         payload={payload}
         onAddFilter={onAddFilter}
         setTooltip={setTooltip}
         getPoints={getPoints}
         height={height}
-        height={width}
+        width={width}
       />
     );
   }
