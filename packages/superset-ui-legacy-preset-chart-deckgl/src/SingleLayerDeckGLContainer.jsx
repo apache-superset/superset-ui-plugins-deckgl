@@ -52,7 +52,7 @@ export default class SingleLayerDeckGLContainer extends React.Component {
     const features = data.features ? data.features : data;
     const points = getPoints(features);
 
-    return autozoom ? fitViewport(sizedViewState, points) : viewState;
+    return autozoom ? fitViewport(sizedViewState, points) : initialViewState;
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -70,7 +70,6 @@ export default class SingleLayerDeckGLContainer extends React.Component {
   }
 
   render() {
-    console.log();
     return (
       <DeckGLContainer
         {...this.props}

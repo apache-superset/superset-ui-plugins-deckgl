@@ -226,23 +226,17 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
   render() {
     return (
       <AnimatableDeckGLContainer
-        getLayer={this.props.getLayer}
-        getPoints={this.props.getPoints}
-        payload={this.props.payload}
+        {...this.props}
         start={this.state.start}
         end={this.state.end}
         getStep={this.state.getStep}
         values={this.state.values}
         onValuesChange={this.onValuesChange}
         disabled={this.state.disabled}
-        formData={this.props.formData}
         initialViewState={this.state.initialViewState}
         oninitialViewStateChange={this.oninitialViewStateChange}
         mapboxApiAccessToken={this.props.mapboxApiKey}
         mapStyle={this.props.formData.mapbox_style}
-        setControlValue={this.props.setControlValue}
-        width={this.props.width}
-        height={this.props.height}
       >
         <Legend
           categories={this.state.categories}

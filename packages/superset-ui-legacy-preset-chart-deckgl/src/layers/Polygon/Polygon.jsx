@@ -143,8 +143,6 @@ const propTypes = {
   setControlValue: PropTypes.func.isRequired,
   onAddFilter: PropTypes.func,
   setTooltip: PropTypes.func,
-  height: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
 };
 
 const defaultProps = {
@@ -254,7 +252,7 @@ class DeckGLPolygon extends React.Component {
   }
 
   render() {
-    const { payload, formData, setControlValue, height, width } = this.props;
+    const { payload, formData } = this.props;
     const { start, end, getStep, values, disabled } = this.state;
 
     const fd = formData;
@@ -265,11 +263,10 @@ class DeckGLPolygon extends React.Component {
 
     return (
       <AnimatableDeckGLContainer
+        {...this.props}
         getLayer={getLayer}
         getPoints={getPoints}
         start={start}
-        formData={formData}
-        payload={payload}
         end={end}
         getStep={getStep}
         values={values}
@@ -277,9 +274,6 @@ class DeckGLPolygon extends React.Component {
         disabled={disabled}
         mapboxApiAccessToken={payload.data.mapboxApiKey}
         mapStyle={formData.mapbox_style}
-        setControlValue={setControlValue}
-        width={width}
-        height={height}
         aggregation
       >
         {formData.metric !== null && (

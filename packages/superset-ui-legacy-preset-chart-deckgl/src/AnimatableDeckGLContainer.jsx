@@ -74,37 +74,22 @@ export default class AnimatableDeckGLContainer extends React.Component {
       children,
       disabled,
       end,
-      formData,
-      getLayer,
-      getPoints,
       getStep,
       height,
-      initialViewState,
       mapStyle,
-      mapboxApiAccessToken,
       onValuesChange,
-      payload,
-      setControlValue,
       start,
       values,
-      width,
     } = this.props;
 
     return (
       <div>
         <SingleLayerDeckGLContainer
-          initialViewState={initialViewState}
-          getLayer={getLayer}
-          getPoints={getPoints}
-          payload={payload}
-          formData={formData}
-          setControlValue={setControlValue}
+          {...this.props}
           mapStyle={mapStyle}
-          mapboxApiAccessToken={mapboxApiAccessToken}
           oninitialViewStateChange={this.oninitialViewStateChange}
           // leave space for the play slider
           height={disabled ? height : height - PLAYSLIDER_HEIGHT}
-          width={width}
         >
           {children}
         </SingleLayerDeckGLContainer>
