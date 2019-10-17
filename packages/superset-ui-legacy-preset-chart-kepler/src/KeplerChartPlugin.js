@@ -33,7 +33,7 @@ export default class KeplerChartPlugin extends ChartPlugin {
     super({
       metadata,
       transformProps,
-      loadChart: () => import('./Kepler.jsx'),
+      loadChart: () => import('./Kepler'),
     });
   }
 }

@@ -17,13 +17,13 @@
  * under the License.
  */
 import { Preset } from '@superset-ui/core';
-import Kepler from './Kepler';
+import KeplerChartPlugin from './KeplerChartPlugin';
 
-export default class DeckGLChartPreset extends Preset {
+export default class KeplerChartPreset extends Preset {
   constructor() {
     super({
       name: 'Kepler charts',
-      plugins: [new Kepler().configure({ key: 'kepler' })],
+      plugins: [new KeplerChartPlugin().configure({ key: 'kepler' })],
     });
   }
 }
