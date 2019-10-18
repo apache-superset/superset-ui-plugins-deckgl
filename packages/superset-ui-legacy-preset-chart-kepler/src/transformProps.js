@@ -1,3 +1,4 @@
+/* eslint-disable sort-keys */
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -20,6 +21,7 @@ export default function transformProps(chartProps) {
   const { formData, height, width, queryData, hooks } = chartProps;
   const { mapboxApiAccessToken, features } = queryData.data;
   const { config, autozoom, readonly } = formData;
+
   return {
     height,
     width,

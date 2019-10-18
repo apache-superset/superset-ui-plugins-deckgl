@@ -1,3 +1,9 @@
+/* eslint-disable babel/new-cap */
+/* eslint-disable babel/no-invalid-this */
+/* eslint-disable compat/compat */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-magic-numbers */
+/* eslint-disable sort-keys */
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -35,6 +41,7 @@ function RateLimit(fn, delay, context) {
       timer = null;
     }
   }
+
   return function limited(...args) {
     latestCall = {
       context: context || this,
@@ -64,6 +71,7 @@ export default function getKeplerStore(setControlValue) {
   const stateChangeMiddleware = store => next => action => {
     const returnValue = next(action);
     rateLimitedUpdateConfigControl(store, setControlValue);
+
     return returnValue;
   };
   const reducers = combineReducers({
@@ -73,5 +81,6 @@ export default function getKeplerStore(setControlValue) {
   const middlewares = [taskMiddleware, stateChangeMiddleware];
   const enhancers = [applyMiddleware(...middlewares)];
   const store = createStore(reducers, {}, compose(...enhancers));
+
   return store;
 }

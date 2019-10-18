@@ -1,6 +1,5 @@
 import URI from 'urijs';
 import { safeStringify } from './safeStringify';
-console.log('DAMN DAMN', URI);
 
 const MAX_URL_LENGTH = 8000;
 

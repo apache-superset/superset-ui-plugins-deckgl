@@ -1,3 +1,12 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-handler-names */
+/* eslint-disable react/no-deprecated */
+/* eslint-disable no-negated-condition */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
+/* eslint-disable sort-keys */
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -42,24 +51,29 @@ class Kepler extends React.PureComponent {
       keplerId: shortid.generate(),
     };
   }
+
   componentDidMount() {
     this.addDataToMap(this.props);
     this.setMapConfig();
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.features !== this.props.features) {
       this.addDataToMap(nextProps, false);
       this.setMapConfig();
     }
   }
+
   getCurrentConfig() {
     try {
       const { keplerGl } = this.props;
+
       return KeplerGlSchema.getConfigToSave(keplerGl[this.state.keplerId]);
     } catch (e) {
       return null;
     }
   }
+
   setMapConfig() {
     const { setControlValue } = this.props;
     const config = this.getCurrentConfig();
@@ -67,6 +81,7 @@ class Kepler extends React.PureComponent {
       setControlValue('config', JSON.stringify(this.getCurrentConfig(), null, 2));
     }
   }
+
   addDataToMap(props, useControlConfig = true) {
     let config = props.config;
     if (!config) {
@@ -93,6 +108,7 @@ class Kepler extends React.PureComponent {
     }
     props.dispatch(addDataToMap({ datasets, config, options }));
   }
+
   render() {
     return (
       <div>
@@ -123,6 +139,7 @@ export default class SubApp extends React.Component {
     super(props);
     this.store = getKeplerStore(props.setControlValue);
   }
+
   render() {
     return (
       <Provider store={this.store}>
