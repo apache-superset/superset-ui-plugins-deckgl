@@ -128,10 +128,7 @@ Kepler.propTypes = propTypes;
 
 const mapStateToProps = state => ({ keplerGl: state.keplerGl });
 const dispatchToProps = dispatch => ({ dispatch });
-const KeplerConnected = connect(
-  mapStateToProps,
-  dispatchToProps,
-)(Kepler);
+const KeplerConnected = connect(mapStateToProps, dispatchToProps)(Kepler);
 
 // eslint-disable-next-line react/no-multi-comp
 export default class SubApp extends React.Component {

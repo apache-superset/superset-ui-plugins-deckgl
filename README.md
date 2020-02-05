@@ -19,8 +19,10 @@ Current master: https://superset-ui-plugins-deckgl.netlify.com
 
 ## Contribution and development guide
 
-Please read the [contributing guidelines](https://github.com/apache-superset/superset-ui/blob/master/CONTRIBUTING.md) which include development environment setup
-and other things you should know about coding in this repo.
+Please read the
+[contributing guidelines](https://github.com/apache-superset/superset-ui/blob/master/CONTRIBUTING.md)
+which include development environment setup and other things you should know about coding in this
+repo.
 
 ### License
 
