@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-sort-default-props */
 /* eslint-disable react/sort-prop-types */
-/* eslint-disable react/jsx-handler-names */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/require-default-props */
 /**
