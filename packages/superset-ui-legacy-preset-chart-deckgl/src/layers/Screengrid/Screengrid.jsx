@@ -183,11 +183,8 @@ class DeckGLScreenGrid extends React.PureComponent {
           values={this.state.values}
           disabled={this.state.disabled}
           viewport={this.state.viewport}
-<<<<<<< HEAD
           width={this.props.width}
           height={this.props.height}
-=======
->>>>>>> fix: eslint-disable statements
           mapboxApiAccessToken={payload.data.mapboxApiKey}
           mapStyle={formData.mapbox_style}
           setControlValue={setControlValue}
