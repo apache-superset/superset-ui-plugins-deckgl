@@ -34,12 +34,9 @@ import { getBuckets, getBreakPointColorScaler } from '../../utils';
 import { commonLayerProps, fitViewport } from '../common';
 import { getPlaySliderParams } from '../../utils/time';
 import sandboxedEval from '../../utils/sandbox';
+import getCoordinatesFromFeature from './getCoordinatesFromFeature.ts';
 
 const DOUBLE_CLICK_TRESHOLD = 250; // milliseconds
-
-function getPoints(features) {
-  return features.flatMap(d => d.polygon);
-}
 
 function getElevation(d, colorScaler) {
   /* in deck.gl 5.3.4 (used in Superset as of 2018-10-24), if a polygon has
@@ -114,7 +111,7 @@ export function getLayer(formData, payload, onAddFilter, setTooltip, selected, o
     pickable: true,
     filled: fd.filled,
     stroked: fd.stroked,
-    getPolygon: d => d.polygon,
+    getPolygon: getCoordinatesFromFeature,
     getFillColor: colorScaler,
     getLineColor: [sc.r, sc.g, sc.b, 255 * sc.a],
     getLineWidth: fd.line_width,
@@ -154,14 +151,16 @@ class DeckGLPolygon extends React.Component {
   }
 
   static getDerivedStateFromProps(props, state) {
+    const { payload, width, height } = props;
+
     // the state is computed only from the payload; if it hasn't changed, do
     // not recompute state since this would reset selections and/or the play
     // slider position due to changes in form controls
-    if (state && props.payload.form_data === state.formData) {
+    if (state && payload.form_data === state.formData) {
       return null;
     }
 
-    const features = props.payload.data.features || [];
+    const features = payload.data.features || [];
     const timestamps = features.map(f => f.__timestamp);
 
     // the granularity has to be read from the payload form_data, not the
@@ -172,7 +171,14 @@ class DeckGLPolygon extends React.Component {
     const { start, end, getStep, values, disabled } = getPlaySliderParams(timestamps, granularity);
 
     const viewport = props.formData.autozoom
-      ? fitViewport(props.viewport, getPoints(features))
+      ? fitViewport(
+          {
+            ...props.viewport,
+            width,
+            height,
+          },
+          features.flatMap(getCoordinatesFromFeature),
+        )
       : props.viewport;
 
     return {
