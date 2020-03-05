@@ -4,9 +4,15 @@ describe('getPointsFromPolygon', () => {
   it('handle original input', () => {
     expect(
       getPointsFromPolygon({
-        polygon: [[1, 2]],
+        polygon: [
+          [1, 2],
+          [3, 4],
+        ],
       }),
-    ).toEqual([1, 2]);
+    ).toEqual([
+      [1, 2],
+      [3, 4],
+    ]);
   });
   it('handle geojson features', () => {
     expect(
@@ -15,10 +21,18 @@ describe('getPointsFromPolygon', () => {
           type: 'Feature',
           geometry: {
             type: 'Polygon',
-            coordinates: [[[1, 2]]],
+            coordinates: [
+              [
+                [1, 2],
+                [3, 4],
+              ],
+            ],
           },
         },
       }),
-    ).toEqual([1, 2]);
+    ).toEqual([
+      [1, 2],
+      [3, 4],
+    ]);
   });
 });

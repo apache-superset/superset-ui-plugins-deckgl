@@ -1,4 +1,4 @@
-type Point = [number, number];
+import { Point } from './types';
 
 /** Format originally used by the Polygon plugin */
 type CustomPolygonFeature = {
@@ -19,16 +19,8 @@ type GeojsonPolygonFeature = {
   };
 };
 
-function isCustomPolygonFeature(
-  feature: CustomPolygonFeature | GeojsonPolygonFeature,
-): feature is CustomPolygonFeature {
-  return Array.isArray(feature.polygon);
-}
-
 export default function getPointsFromPolygon(
   feature: CustomPolygonFeature | GeojsonPolygonFeature,
 ) {
-  return isCustomPolygonFeature(feature)
-    ? feature.polygon
-    : feature.polygon.geometry.coordinates[0];
+  return 'geometry' in feature.polygon ? feature.polygon.geometry.coordinates[0] : feature.polygon;
 }

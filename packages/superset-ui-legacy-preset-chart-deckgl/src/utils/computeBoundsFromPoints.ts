@@ -1,45 +1,21 @@
 import { extent as d3Extent } from 'd3-array';
+import { Point, Range } from './types';
 
-const PADDING = 0.25;
-const GEO_BOUNDS = {
-  LAT_MAX: 90,
-  LAT_MIN: -90,
-  LNG_MAX: 180,
-  LNG_MIN: -180,
-};
+const LAT_LIMIT: Range = [-90, 90];
+const LNG_LIMIT: Range = [-180, 180];
 
 /**
- * Get the latitude bounds if latitude is a single coordinate
- * @param latExt Latitude range
+ * Expand a coordinate range by `padding` and within limits, if needed
  */
-function getLatBoundsForSingleCoordinate(latExt: [number, number]) {
-  const latMin =
-    latExt[0] - PADDING < GEO_BOUNDS.LAT_MIN ? GEO_BOUNDS.LAT_MIN : latExt[0] - PADDING;
-  const latMax =
-    latExt[1] + PADDING > GEO_BOUNDS.LAT_MAX ? GEO_BOUNDS.LAT_MAX : latExt[1] + PADDING;
-
-  return [latMin, latMax];
+function expandIfNeeded([curMin, curMax]: Range, [minBound, maxBound]: Range, padding = 0.25) {
+  return curMin < curMax
+    ? [curMin, curMax]
+    : [Math.max(minBound, curMin - padding), Math.min(maxBound, curMax + padding)];
 }
 
-/**
- * Get the longitude bounds if longitude is a single coordinate
- * @param lngExt Longitude range
- */
-function getLngBoundsForSingleCoordinate(lngExt: [number, number]) {
-  const lngMin =
-    lngExt[0] - PADDING < GEO_BOUNDS.LNG_MIN ? GEO_BOUNDS.LNG_MIN : lngExt[0] - PADDING;
-  const lngMax =
-    lngExt[1] + PADDING > GEO_BOUNDS.LNG_MAX ? GEO_BOUNDS.LNG_MAX : lngExt[1] + PADDING;
-
-  return [lngMin, lngMax];
-}
-
-export default function computeBoundsFromPoints(points: [number, number][]) {
-  const latExt = d3Extent(points, ([a, lat]: [number, number]) => lat) as [number, number];
-  const lngExt = d3Extent(points, ([lng, b]: [number, number]) => lng) as [number, number];
-  const latBounds = latExt[0] === latExt[1] ? getLatBoundsForSingleCoordinate(latExt) : latExt;
-  const lngBounds = lngExt[0] === lngExt[1] ? getLngBoundsForSingleCoordinate(lngExt) : lngExt;
-
+export default function computeBoundsFromPoints(points: Point[]) {
+  const latBounds = expandIfNeeded(d3Extent(points, (x: Point) => x[1]) as Range, LAT_LIMIT);
+  const lngBounds = expandIfNeeded(d3Extent(points, (x: Point) => x[0]) as Range, LNG_LIMIT);
   return [
     [lngBounds[0], latBounds[0]],
     [lngBounds[1], latBounds[1]],
