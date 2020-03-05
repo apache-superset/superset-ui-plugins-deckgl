@@ -46,8 +46,8 @@ export default function fitViewport(
       pitch,
     };
   } catch (error) {
-    /* eslint no-console: 0 */
-    console.error('Could not auto zoom', error);
+    // eslint-disable-next-line no-console
+    console.error('Could not fit viewport', error);
 
     return originalViewPort;
   }
