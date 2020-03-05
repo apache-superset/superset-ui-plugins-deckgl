@@ -26,7 +26,8 @@ import { isEqual } from 'lodash';
 
 import DeckGLContainer from './DeckGLContainer';
 import CategoricalDeckGLContainer from './CategoricalDeckGLContainer';
-import fitViewport from './utils/fitViewport.ts';
+// eslint-disable-next-line import/extensions
+import fitViewport from './utils/fitViewport';
 
 const propTypes = {
   formData: PropTypes.object.isRequired,

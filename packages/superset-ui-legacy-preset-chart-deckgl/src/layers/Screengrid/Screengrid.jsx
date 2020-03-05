@@ -29,7 +29,8 @@ import { getPlaySliderParams } from '../../utils/time';
 import sandboxedEval from '../../utils/sandbox';
 import { commonLayerProps } from '../common';
 import TooltipRow from '../../TooltipRow';
-import fitViewport from '../../utils/fitViewport.ts';
+// eslint-disable-next-line import/extensions
+import fitViewport from '../../utils/fitViewport';
 
 function getPoints(data) {
   return data.map(d => d.position);
