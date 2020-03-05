@@ -34,7 +34,8 @@ import { getBuckets, getBreakPointColorScaler } from '../../utils';
 import { commonLayerProps } from '../common';
 import { getPlaySliderParams } from '../../utils/time';
 import sandboxedEval from '../../utils/sandbox';
-import getPointsFromPolygon from '../../utils/getPointsFromPolygon.ts';
+// eslint-disable-next-line import/extensions
+import getPointsFromPolygon from '../../utils/getPointsFromPolygon';
 // eslint-disable-next-line import/extensions
 import fitViewport from '../../utils/fitViewport';
 
