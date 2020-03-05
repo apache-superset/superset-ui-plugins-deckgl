@@ -26,7 +26,7 @@ import { isEqual } from 'lodash';
 
 import DeckGLContainer from './DeckGLContainer';
 import CategoricalDeckGLContainer from './CategoricalDeckGLContainer';
-import { fitViewport } from './layers/common';
+import fitViewport from './utils/fitViewport';
 
 const propTypes = {
   formData: PropTypes.object.isRequired,
@@ -48,10 +48,17 @@ export function createDeckGLComponent(getLayer, getPoints) {
   class Component extends React.PureComponent {
     constructor(props) {
       super(props);
-      const originalViewport = props.viewport;
+
+      const { viewport: originalViewport, width, height } = props;
+
       const viewport = props.formData.autozoom
-        ? fitViewport(originalViewport, getPoints(props.payload.data.features))
+        ? fitViewport(originalViewport, {
+            points: getPoints(props.payload.data.features),
+            width,
+            height,
+          })
         : originalViewport;
+
       this.state = {
         viewport,
         layer: this.computeLayer(props),

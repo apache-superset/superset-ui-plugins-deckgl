@@ -104,7 +104,7 @@ export default {
           },
         },
         __timestamp: null,
-        elevation: 1000,
+        elevation: 0,
       },
     ],
     mapboxApiKey:

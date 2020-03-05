@@ -27,8 +27,9 @@ import { t } from '@superset-ui/translation';
 import AnimatableDeckGLContainer from '../../AnimatableDeckGLContainer';
 import { getPlaySliderParams } from '../../utils/time';
 import sandboxedEval from '../../utils/sandbox';
-import { commonLayerProps, fitViewport } from '../common';
+import { commonLayerProps } from '../common';
 import TooltipRow from '../../TooltipRow';
+import fitViewport from '../../utils/fitViewport';
 
 function getPoints(data) {
   return data.map(d => d.position);
@@ -122,11 +123,16 @@ class DeckGLScreenGrid extends React.PureComponent {
     const granularity =
       props.payload.form_data.time_grain_sqla || props.payload.form_data.granularity || 'P1D';
 
+    const { width, height, viewport: originalViewport } = props;
     const { start, end, getStep, values, disabled } = getPlaySliderParams(timestamps, granularity);
 
     const viewport = props.formData.autozoom
-      ? fitViewport(props.viewport, getPoints(features))
-      : props.viewport;
+      ? fitViewport(originalViewport, {
+          points: getPoints(features),
+          width,
+          height,
+        })
+      : originalViewport;
 
     return {
       start,

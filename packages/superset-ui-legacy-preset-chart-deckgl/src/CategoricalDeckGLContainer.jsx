@@ -32,7 +32,7 @@ import Legend from './components/Legend';
 import { hexToRGB } from './utils/colors';
 import { getPlaySliderParams } from './utils/time';
 import sandboxedEval from './utils/sandbox';
-import { fitViewport } from './layers/common';
+import fitViewport from './utils/fitViewport';
 
 const { getScale } = CategoricalColorNamespace;
 
@@ -117,11 +117,16 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
     const granularity =
       props.payload.form_data.time_grain_sqla || props.payload.form_data.granularity || 'P1D';
 
+    const { width, height, viewport: originalViewport } = props;
     const { start, end, getStep, values, disabled } = getPlaySliderParams(timestamps, granularity);
 
     const viewport = props.formData.autozoom
-      ? fitViewport(props.viewport, props.getPoints(features))
-      : props.viewport;
+      ? fitViewport(originalViewport, {
+          points: props.getPoints(features),
+          width,
+          height,
+        })
+      : originalViewport;
 
     return {
       start,

@@ -31,10 +31,11 @@ import Legend from '../../components/Legend';
 import TooltipRow from '../../TooltipRow';
 import { getBuckets, getBreakPointColorScaler } from '../../utils';
 
-import { commonLayerProps, fitViewport } from '../common';
+import { commonLayerProps } from '../common';
 import { getPlaySliderParams } from '../../utils/time';
 import sandboxedEval from '../../utils/sandbox';
-import getCoordinatesFromFeature from './getCoordinatesFromFeature.ts';
+import getCoordinatesFromFeature from './getCoordinatesFromFeature';
+import fitViewport from '../../utils/fitViewport';
 
 const DOUBLE_CLICK_TRESHOLD = 250; // milliseconds
 
@@ -151,7 +152,7 @@ class DeckGLPolygon extends React.Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { payload, width, height } = props;
+    const { payload, width, height, viewport: originalViewport } = props;
 
     // the state is computed only from the payload; if it hasn't changed, do
     // not recompute state since this would reset selections and/or the play
@@ -171,15 +172,12 @@ class DeckGLPolygon extends React.Component {
     const { start, end, getStep, values, disabled } = getPlaySliderParams(timestamps, granularity);
 
     const viewport = props.formData.autozoom
-      ? fitViewport(
-          {
-            ...props.viewport,
-            width,
-            height,
-          },
-          features.flatMap(getCoordinatesFromFeature),
-        )
-      : props.viewport;
+      ? fitViewport(originalViewport, {
+          points: features.flatMap(getCoordinatesFromFeature),
+          width,
+          height,
+        })
+      : originalViewport;
 
     return {
       start,

@@ -14,7 +14,7 @@ type GeojsonFeature = {
     type: 'Feature';
     geometry: {
       type: 'Polygon';
-      coordinates: Coordinate[];
+      coordinates: Coordinate[][];
     };
   };
 };
@@ -24,5 +24,5 @@ function isCustomFeature(feature: CustomFeature | GeojsonFeature): feature is Cu
 }
 
 export default function getCoordinatesFromFeature(feature: CustomFeature | GeojsonFeature) {
-  return isCustomFeature(feature) ? feature.polygon : feature.polygon.geometry.coordinates;
+  return isCustomFeature(feature) ? feature.polygon : feature.polygon.geometry.coordinates[0];
 }
