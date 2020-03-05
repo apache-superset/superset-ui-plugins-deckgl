@@ -34,7 +34,7 @@ import { getBuckets, getBreakPointColorScaler } from '../../utils';
 import { commonLayerProps } from '../common';
 import { getPlaySliderParams } from '../../utils/time';
 import sandboxedEval from '../../utils/sandbox';
-import getCoordinatesFromFeature from './getCoordinatesFromFeature.ts';
+import getPointsFromPolygon from './getPointsFromPolygon.ts';
 import fitViewport from '../../utils/fitViewport.ts';
 
 const DOUBLE_CLICK_TRESHOLD = 250; // milliseconds
@@ -112,7 +112,7 @@ export function getLayer(formData, payload, onAddFilter, setTooltip, selected, o
     pickable: true,
     filled: fd.filled,
     stroked: fd.stroked,
-    getPolygon: getCoordinatesFromFeature,
+    getPolygon: getPointsFromPolygon,
     getFillColor: colorScaler,
     getLineColor: [sc.r, sc.g, sc.b, 255 * sc.a],
     getLineWidth: fd.line_width,
@@ -173,7 +173,7 @@ class DeckGLPolygon extends React.Component {
 
     const viewport = props.formData.autozoom
       ? fitViewport(originalViewport, {
-          points: features.flatMap(getCoordinatesFromFeature),
+          points: features.flatMap(getPointsFromPolygon),
           width,
           height,
         })
