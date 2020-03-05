@@ -49,15 +49,15 @@ export function createDeckGLComponent(getLayer, getPoints) {
     constructor(props) {
       super(props);
 
-      const { viewport: originalViewport, width, height } = props;
-
-      const viewport = props.formData.autozoom
-        ? fitViewport(originalViewport, {
-            points: getPoints(props.payload.data.features),
-            width,
-            height,
-          })
-        : originalViewport;
+      const { width, height, formData } = props;
+      let { viewport } = props;
+      if (formData.autozoom) {
+        viewport = fitViewport(viewport, {
+          width,
+          height,
+          points: getPoints(props.payload.data.features),
+        });
+      }
 
       this.state = {
         viewport,

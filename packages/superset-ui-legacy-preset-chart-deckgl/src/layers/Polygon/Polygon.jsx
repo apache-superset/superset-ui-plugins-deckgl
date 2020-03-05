@@ -152,7 +152,7 @@ class DeckGLPolygon extends React.Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { payload, width, height, viewport: originalViewport } = props;
+    const { width, height, formData, payload } = props;
 
     // the state is computed only from the payload; if it hasn't changed, do
     // not recompute state since this would reset selections and/or the play
@@ -166,18 +166,18 @@ class DeckGLPolygon extends React.Component {
 
     // the granularity has to be read from the payload form_data, not the
     // props formData which comes from the instantaneous controls state
-    const granularity =
-      props.payload.form_data.time_grain_sqla || props.payload.form_data.granularity || 'P1D';
+    const granularity = payload.form_data.time_grain_sqla || payload.form_data.granularity || 'P1D';
 
     const { start, end, getStep, values, disabled } = getPlaySliderParams(timestamps, granularity);
 
-    const viewport = props.formData.autozoom
-      ? fitViewport(originalViewport, {
-          points: features.flatMap(getPointsFromPolygon),
-          width,
-          height,
-        })
-      : originalViewport;
+    let { viewport } = props;
+    if (formData.autozoom) {
+      viewport = fitViewport(viewport, {
+        width,
+        height,
+        points: features.flatMap(getPointsFromPolygon),
+      });
+    }
 
     return {
       start,
@@ -188,7 +188,7 @@ class DeckGLPolygon extends React.Component {
       viewport,
       selected: [],
       lastClick: 0,
-      formData: props.payload.form_data,
+      formData: payload.form_data,
     };
   }
 

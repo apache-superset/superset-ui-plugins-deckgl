@@ -123,16 +123,17 @@ class DeckGLScreenGrid extends React.PureComponent {
     const granularity =
       props.payload.form_data.time_grain_sqla || props.payload.form_data.granularity || 'P1D';
 
-    const { width, height, viewport: originalViewport } = props;
     const { start, end, getStep, values, disabled } = getPlaySliderParams(timestamps, granularity);
+    const { width, height, formData } = props;
 
-    const viewport = props.formData.autozoom
-      ? fitViewport(originalViewport, {
-          points: getPoints(features),
-          width,
-          height,
-        })
-      : originalViewport;
+    let { viewport } = props;
+    if (formData.autozoom) {
+      viewport = fitViewport(viewport, {
+        width,
+        height,
+        points: getPoints(features),
+      });
+    }
 
     return {
       start,

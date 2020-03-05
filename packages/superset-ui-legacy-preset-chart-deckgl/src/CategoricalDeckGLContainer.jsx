@@ -117,16 +117,17 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
     const granularity =
       props.payload.form_data.time_grain_sqla || props.payload.form_data.granularity || 'P1D';
 
-    const { width, height, viewport: originalViewport } = props;
     const { start, end, getStep, values, disabled } = getPlaySliderParams(timestamps, granularity);
 
-    const viewport = props.formData.autozoom
-      ? fitViewport(originalViewport, {
-          points: props.getPoints(features),
-          width,
-          height,
-        })
-      : originalViewport;
+    const { width, height, formData } = props;
+    let { viewport } = props;
+    if (formData.autozoom) {
+      viewport = fitViewport(viewport, {
+        width,
+        height,
+        points: props.getPoints(features),
+      });
+    }
 
     return {
       start,
