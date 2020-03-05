@@ -3,7 +3,7 @@
 import React from 'react';
 import { SuperChart } from '@superset-ui/chart';
 import payload from './payload';
-import payload2 from './payload2';
+import geojsonPayload from './geojsonPayload';
 import dummyDatasource from '../../../shared/dummyDatasource';
 
 export default [
@@ -80,7 +80,7 @@ export default [
         width={400}
         height={400}
         datasource={dummyDatasource}
-        queryData={payload2}
+        queryData={geojsonPayload}
         formData={{
           datasource: '9__table',
           viz_type: 'deck_polygon',
