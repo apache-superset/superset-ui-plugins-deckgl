@@ -32,7 +32,7 @@ import Legend from './components/Legend';
 import { hexToRGB } from './utils/colors';
 import { getPlaySliderParams } from './utils/time';
 import sandboxedEval from './utils/sandbox';
-import fitViewport from './utils/fitViewport';
+import fitViewport from './utils/fitViewport.ts';
 
 const { getScale } = CategoricalColorNamespace;
 

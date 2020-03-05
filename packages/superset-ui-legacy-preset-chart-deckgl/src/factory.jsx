@@ -26,7 +26,7 @@ import { isEqual } from 'lodash';
 
 import DeckGLContainer from './DeckGLContainer';
 import CategoricalDeckGLContainer from './CategoricalDeckGLContainer';
-import fitViewport from './utils/fitViewport';
+import fitViewport from './utils/fitViewport.ts';
 
 const propTypes = {
   formData: PropTypes.object.isRequired,

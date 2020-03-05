@@ -29,7 +29,7 @@ import { getPlaySliderParams } from '../../utils/time';
 import sandboxedEval from '../../utils/sandbox';
 import { commonLayerProps } from '../common';
 import TooltipRow from '../../TooltipRow';
-import fitViewport from '../../utils/fitViewport';
+import fitViewport from '../../utils/fitViewport.ts';
 
 function getPoints(data) {
   return data.map(d => d.position);
