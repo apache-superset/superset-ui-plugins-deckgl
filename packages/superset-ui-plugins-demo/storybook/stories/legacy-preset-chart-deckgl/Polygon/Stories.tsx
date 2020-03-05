@@ -118,7 +118,7 @@ export default [
         }}
       />
     ),
-    storyName: 'Polygon - 2',
+    storyName: 'Single Polygon in geojson format',
     storyPath: 'legacy-|preset-chart-deckgl|PolygonChartPlugin',
   },
 ];
