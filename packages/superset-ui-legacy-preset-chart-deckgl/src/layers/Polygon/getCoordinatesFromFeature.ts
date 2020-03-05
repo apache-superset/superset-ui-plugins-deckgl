@@ -1,8 +1,8 @@
-type Coordinate = [number, number];
+type Point = [number, number];
 
 /** Format originally used by the Polygon plugin */
 type CustomFeature = {
-  polygon: Coordinate[];
+  polygon: Point[];
 };
 
 /**
@@ -14,7 +14,7 @@ type GeojsonFeature = {
     type: 'Feature';
     geometry: {
       type: 'Polygon';
-      coordinates: Coordinate[][];
+      coordinates: Point[][];
     };
   };
 };

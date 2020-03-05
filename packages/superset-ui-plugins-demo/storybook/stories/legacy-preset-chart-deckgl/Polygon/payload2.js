@@ -76,8 +76,6 @@ export default {
     ],
   },
   is_cached: true,
-  query:
-    'SELECT "geometry" AS "geometry",\n       count(*) AS "count"\nFROM\n  (SELECT \'{"type": "Feature", "properties": {}, "geometry": {"type": "Polygon", "coordinates": [[[-149.95132113447022, 61.1310423022678], [-149.95386039742468, 61.12975642234931], [-149.9529189574033, 61.128200857856946], [-149.94943860572158, 61.12793112735274], [-149.9468993514573, 61.12921688848983], [-149.94784044016444, 61.1307724989074], [-149.95132113447022, 61.1310423022678]]]}}\' AS geometry\n   FROM core_data.dim_users\n   WHERE ds = \'2020-02-01\'\n   LIMIT 1) AS "expr_qry"\nWHERE "geometry" IS NOT NULL\nGROUP BY "geometry"\nORDER BY "count" DESC\nLIMIT 1000',
   status: 'success',
   stacktrace: null,
   rowcount: 1,
