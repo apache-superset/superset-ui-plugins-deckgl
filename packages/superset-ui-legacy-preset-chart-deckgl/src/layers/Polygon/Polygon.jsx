@@ -34,7 +34,7 @@ import { getBuckets, getBreakPointColorScaler } from '../../utils';
 import { commonLayerProps } from '../common';
 import { getPlaySliderParams } from '../../utils/time';
 import sandboxedEval from '../../utils/sandbox';
-import getPointsFromPolygon from './getPointsFromPolygon.ts';
+import getPointsFromPolygon from '../../utils/getPointsFromPolygon.ts';
 import fitViewport from '../../utils/fitViewport.ts';
 
 const DOUBLE_CLICK_TRESHOLD = 250; // milliseconds
