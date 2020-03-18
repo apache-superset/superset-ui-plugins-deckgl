@@ -56,7 +56,7 @@ function setTooltipContent(formData) {
 
     return (
       <div className="deckgl-tooltip">
-        {o.object.name && <TooltipRow label="Name: " value={`${o.object.name}`} />}
+        {o.object.name && <TooltipRow label="name: " value={`${o.object.name}`} />}
         {o.object[formData.line_column] && (
           <TooltipRow
             label={`${formData.line_column}: `}
