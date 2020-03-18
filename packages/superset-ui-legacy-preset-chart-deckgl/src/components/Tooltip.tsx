@@ -26,7 +26,7 @@ export default function Tooltip(props: TooltipProps) {
       position: 'absolute',
       top: `${y}px`,
       left: `${x}px`,
-      padding: '4px',
+      padding: '8px',
       margin: '8px',
       background: 'rgba(0, 0, 0, 0.8)',
       color: '#fff',
