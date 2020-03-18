@@ -38,20 +38,23 @@ export default function Tooltip(props: TooltipProps) {
     [x, y],
   );
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const contentNode = useMemo(
-    () =>
-      typeof content === 'string' ? (
-        <div // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{
-            __html: filterXSS(content, { stripIgnoreTag: true }),
-          }}
+  if (typeof content === 'string') {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const contentHtml = useMemo(
+      () => ({
+        __html: filterXSS(content, { stripIgnoreTag: true }),
+      }),
+      [content],
+    );
+    return (
+      <div style={style}>
+        <div
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={contentHtml}
         />
-      ) : (
-        content
-      ),
-    [content],
-  );
+      </div>
+    );
+  }
 
-  return <div style={style}>{contentNode}</div>;
+  return <div style={style}>{content}</div>;
 }
