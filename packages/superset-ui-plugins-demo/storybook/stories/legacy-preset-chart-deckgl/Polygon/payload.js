@@ -13,7 +13,7 @@ export default {
     granularity_sqla: null,
     time_grain_sqla: null,
     time_range: ' : ',
-    line_column: 'geometry',
+    line_column: 'contour',
     line_type: 'json',
     adhoc_filters: [
       {
