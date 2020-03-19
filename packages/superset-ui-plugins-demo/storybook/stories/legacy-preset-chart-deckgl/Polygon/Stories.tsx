@@ -71,7 +71,7 @@ export default [
       />
     ),
     storyName: 'Basic',
-    storyPath: 'legacy-|preset-chart-deckgl|PolygonChartPlugin',
+    storyPath: 'legacy-preset-chart-deckgl|PolygonChartPlugin',
   },
   {
     renderStory: () => (
@@ -119,6 +119,6 @@ export default [
       />
     ),
     storyName: 'Single Polygon in geojson format',
-    storyPath: 'legacy-|preset-chart-deckgl|PolygonChartPlugin',
+    storyPath: 'legacy-preset-chart-deckgl|PolygonChartPlugin',
   },
 ];

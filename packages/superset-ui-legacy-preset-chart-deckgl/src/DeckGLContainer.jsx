@@ -104,7 +104,6 @@ export default class DeckGLContainer extends React.Component {
 
     return (
       <>
-        <Tooltip tooltip={tooltip} />
         <div style={{ position: 'relative', width, height: adjustedHeight }}>
           <DeckGL
             initWebGLParameters
@@ -122,6 +121,7 @@ export default class DeckGLContainer extends React.Component {
           </DeckGL>
           {children}
         </div>
+        <Tooltip tooltip={tooltip} />
       </>
     );
   }
