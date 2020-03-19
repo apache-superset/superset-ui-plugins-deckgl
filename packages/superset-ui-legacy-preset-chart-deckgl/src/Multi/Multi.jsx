@@ -112,8 +112,9 @@ class DeckMulti extends React.PureComponent {
   }
 
   setTooltip = tooltip => {
-    if (this.containerRef.current) {
-      this.containerRef.current.setTooltip(tooltip);
+    const { current } = this.containerRef;
+    if (current) {
+      current.setTooltip(tooltip);
     }
   };
 
