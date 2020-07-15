@@ -16,27 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { t } from '@superset-ui/translation';
-import { ChartMetadata, ChartPlugin } from '@superset-ui/chart';
-import thumbnail from './images/thumbnail.png';
-import transformProps from '../../transformProps';
-import controlPanel from '../../controlPanels/DeckScatter';
-
-const metadata = new ChartMetadata({
-  credits: ['https://uber.github.io/deck.gl'],
-  description: '',
-  name: t('deck.gl Scatterplot'),
-  thumbnail,
-  useLegacyApi: true,
-});
-
-export default class ScatterChartPlugin extends ChartPlugin {
-  constructor() {
-    super({
-      loadChart: () => import('./Scatter'),
-      controlPanel,
-      metadata,
-      transformProps,
-    });
-  }
-}
+export default {
+  default: null,
+  mapStateToProps: state => ({
+    choices: state.datasource
+      ? state.datasource.time_grain_sqla.filter(o => o[0] !== null)
+      : null,
+  }),
+};
