@@ -52,11 +52,7 @@ export default {
     {
       label: t('Query'),
       expanded: true,
-      controlSetRows: [
-        [spatial, null],
-        ['row_limit', filterNulls],
-        ['adhoc_filters'],
-      ],
+      controlSetRows: [[spatial, null], ['row_limit', filterNulls], ['adhoc_filters']],
     },
     {
       label: t('Map'),
@@ -86,9 +82,7 @@ export default {
                 ['radius_km', 'Radius in kilometers'],
                 ['radius_miles', 'Radius in miles'],
               ],
-              description: t(
-                'The unit of measure for the specified point radius',
-              ),
+              description: t('The unit of measure for the specified point radius'),
             },
           },
         ],
@@ -136,9 +130,7 @@ export default {
           {
             ...dimension,
             label: t('Categorical Color'),
-            description: t(
-              'Pick a dimension from which categorical colors are defined',
-            ),
+            description: t('Pick a dimension from which categorical colors are defined'),
           },
           'color_scheme',
           'label_colors',
@@ -147,12 +139,7 @@ export default {
     },
     {
       label: t('Advanced'),
-      controlSetRows: [
-        [jsColumns],
-        [jsDataMutator],
-        [jsTooltip],
-        [jsOnclickHref],
-      ],
+      controlSetRows: [[jsColumns], [jsDataMutator], [jsTooltip], [jsOnclickHref]],
     },
   ],
   controlOverrides: {

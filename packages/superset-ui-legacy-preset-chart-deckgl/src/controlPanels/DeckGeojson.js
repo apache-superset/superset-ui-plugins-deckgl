@@ -17,10 +17,7 @@
  * under the License.
  */
 import { t } from '@superset-ui/translation';
-import {
-  validateNonEmpty,
-  legacyValidateInteger,
-} from '@superset-ui/validator';
+import { validateNonEmpty, legacyValidateInteger } from '@superset-ui/validator';
 import { formatSelectOptions } from './utilities/utils';
 import { columnChoices } from './utilities/controls';
 import {
@@ -94,12 +91,7 @@ export default {
     },
     {
       label: t('Advanced'),
-      controlSetRows: [
-        [jsColumns],
-        [jsDataMutator],
-        [jsTooltip],
-        [jsOnclickHref],
-      ],
+      controlSetRows: [[jsColumns], [jsDataMutator], [jsTooltip], [jsOnclickHref]],
     },
   ],
 };

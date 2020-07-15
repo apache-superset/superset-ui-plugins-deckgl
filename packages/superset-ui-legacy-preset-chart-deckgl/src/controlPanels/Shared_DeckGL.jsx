@@ -28,10 +28,8 @@ import { D3_FORMAT_OPTIONS, columnChoices, PRIMARY_COLOR } from './utilities/con
 const timeColumnOption = {
   verbose_name: 'Time',
   column_name: '__timestamp',
-  description: t(
-    'A reference to the [Time] configuration, taking granularity into ' +
-      'account',
-  ),
+  // eslint-disable-next-line no-useless-concat
+  description: t('A reference to the [Time] configuration, taking granularity into ' + 'account'),
 };
 
 const DEFAULT_VIEWPORT = {
@@ -50,15 +48,13 @@ const groupByControl = {
   default: [],
   includeTime: false,
   description: t('One or many controls to group by'),
-  optionRenderer: c => <ColumnOption column={c} showType />,
+  optionRenderer: c => <ColumnOption showType column={c} />,
   valueRenderer: c => <ColumnOption column={c} />,
   valueKey: 'column_name',
   allowAll: true,
   filterOption: (opt, text) =>
-    (opt.column_name &&
-      opt.column_name.toLowerCase().indexOf(text.toLowerCase()) >= 0) ||
-    (opt.verbose_name &&
-      opt.verbose_name.toLowerCase().indexOf(text.toLowerCase()) >= 0),
+    (opt.column_name && opt.column_name.toLowerCase().includes(text.toLowerCase())) ||
+    (opt.verbose_name && opt.verbose_name.toLowerCase().includes(text.toLowerCase())),
   promptTextCreator: label => label,
   mapStateToProps: (state, control) => {
     const newState = {};
@@ -81,18 +77,11 @@ const jsFunctionInfo = (
     {t(
       'For more information about objects are in context in the scope of this function, refer to the',
     )}
-    <a href={sandboxUrl}>{t(" source code of Superset's sandboxed parser")}.</a>
-    .
+    <a href={sandboxUrl}>{t(" source code of Superset's sandboxed parser")}.</a>.
   </div>
 );
 
-function jsFunctionControl(
-  label,
-  description,
-  extraDescr = null,
-  height = 100,
-  defaultText = '',
-) {
+function jsFunctionControl(label, description, extraDescr = null, height = 100, defaultText = '') {
   return {
     type: 'TextAreaControl',
     language: 'javascript',
@@ -108,10 +97,9 @@ function jsFunctionControl(
       </div>
     ),
     mapStateToProps: state => ({
+      // eslint-disable-next-line no-negated-condition
       warning: !state.common.conf.ENABLE_JAVASCRIPT_CONTROLS
-        ? t(
-            'This functionality is disabled in your environment for security reasons.',
-          )
+        ? t('This functionality is disabled in your environment for security reasons.')
         : null,
       readOnly: !state.common.conf.ENABLE_JAVASCRIPT_CONTROLS,
     }),
@@ -135,9 +123,7 @@ export const autozoom = {
     label: t('Auto Zoom'),
     default: true,
     renderTrigger: true,
-    description: t(
-      'When checked, the map will zoom to your data after each query',
-    ),
+    description: t('When checked, the map will zoom to your data after each query'),
   },
 };
 
@@ -158,9 +144,7 @@ export const jsColumns = {
     ...groupByControl,
     label: t('Extra data for JS'),
     default: [],
-    description: t(
-      'List of extra columns made available in Javascript functions',
-    ),
+    description: t('List of extra columns made available in Javascript functions'),
   },
 };
 
@@ -180,9 +164,7 @@ export const jsTooltip = {
   name: 'js_tooltip',
   config: jsFunctionControl(
     t('Javascript tooltip generator'),
-    t(
-      'Define a function that receives the input and outputs the content for a tooltip',
-    ),
+    t('Define a function that receives the input and outputs the content for a tooltip'),
   ),
 };
 

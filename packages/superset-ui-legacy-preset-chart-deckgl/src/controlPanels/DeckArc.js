@@ -17,10 +17,7 @@
  * under the License.
  */
 import { t } from '@superset-ui/translation';
-import {
-  validateNonEmpty,
-  legacyValidateInteger,
-} from '@superset-ui/validator';
+import { validateNonEmpty, legacyValidateInteger } from '@superset-ui/validator';
 import timeGrainSqlaAnimationOverrides from './timeGrainSqlaAnimationOverrides';
 import { columnChoices, PRIMARY_COLOR } from './utilities/controls';
 import { formatSelectOptions } from './utilities/utils';
@@ -38,7 +35,6 @@ import {
   mapboxStyle,
 } from './Shared_DeckGL';
 
-console.log('formatselectoptions +++++', formatSelectOptions)
 export default {
   controlPanelSections: [
     {
@@ -102,9 +98,7 @@ export default {
           {
             ...dimension,
             label: t('Categorical Color'),
-            description: t(
-              'Pick a dimension from which categorical colors are defined',
-            ),
+            description: t('Pick a dimension from which categorical colors are defined'),
           },
           'color_scheme',
           'label_colors',
@@ -129,12 +123,7 @@ export default {
     },
     {
       label: t('Advanced'),
-      controlSetRows: [
-        [jsColumns],
-        [jsDataMutator],
-        [jsTooltip],
-        [jsOnclickHref],
-      ],
+      controlSetRows: [[jsColumns], [jsDataMutator], [jsTooltip], [jsOnclickHref]],
     },
   ],
   controlOverrides: {

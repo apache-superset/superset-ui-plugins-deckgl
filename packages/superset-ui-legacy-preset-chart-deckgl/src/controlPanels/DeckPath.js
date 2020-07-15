@@ -63,12 +63,7 @@ export default {
     },
     {
       label: t('Advanced'),
-      controlSetRows: [
-        [jsColumns],
-        [jsDataMutator],
-        [jsTooltip],
-        [jsOnclickHref],
-      ],
+      controlSetRows: [[jsColumns], [jsDataMutator], [jsTooltip], [jsOnclickHref]],
     },
   ],
 };

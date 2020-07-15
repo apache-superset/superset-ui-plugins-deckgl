@@ -17,10 +17,7 @@
  * under the License.
  */
 import { t } from '@superset-ui/translation';
-import {
-  formatSelectOptions,
-  formatSelectOptionsForRange,
-} from './utilities/utils';
+import { formatSelectOptions } from './utilities/utils';
 import {
   filterNulls,
   autozoom,
@@ -40,11 +37,7 @@ export default {
     {
       label: t('Query'),
       expanded: true,
-      controlSetRows: [
-        [spatial, 'size'],
-        ['row_limit', filterNulls],
-        ['adhoc_filters'],
-      ],
+      controlSetRows: [[spatial, 'size'], ['row_limit', filterNulls], ['adhoc_filters']],
     },
     {
       label: t('Map'),
@@ -58,9 +51,7 @@ export default {
             config: {
               type: 'SelectControl',
               label: t('Dynamic Aggregation Function'),
-              description: t(
-                'The function to use when aggregating points into groups',
-              ),
+              description: t('The function to use when aggregating points into groups'),
               default: 'sum',
               clearable: false,
               renderTrigger: true,
@@ -86,12 +77,7 @@ export default {
     },
     {
       label: t('Advanced'),
-      controlSetRows: [
-        [jsColumns],
-        [jsDataMutator],
-        [jsTooltip],
-        [jsOnclickHref],
-      ],
+      controlSetRows: [[jsColumns], [jsDataMutator], [jsTooltip], [jsOnclickHref]],
     },
   ],
   controlOverrides: {

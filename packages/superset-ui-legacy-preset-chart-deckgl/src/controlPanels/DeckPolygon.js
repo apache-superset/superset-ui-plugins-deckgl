@@ -113,9 +113,7 @@ export default {
               freeForm: true,
               label: t('Bucket break points'),
               choices: formatSelectOptions([]),
-              description: t(
-                'List of n+1 values for bucketing metric into n buckets.',
-              ),
+              description: t('List of n+1 values for bucketing metric into n buckets.'),
               renderTrigger: true,
             },
           },
@@ -138,9 +136,7 @@ export default {
               label: t('Multiple filtering'),
               renderTrigger: true,
               default: true,
-              description: t(
-                'Allow sending multiple polygons as a filter event',
-              ),
+              description: t('Allow sending multiple polygons as a filter event'),
             },
           },
         ],
@@ -149,12 +145,7 @@ export default {
     },
     {
       label: t('Advanced'),
-      controlSetRows: [
-        [jsColumns],
-        [jsDataMutator],
-        [jsTooltip],
-        [jsOnclickHref],
-      ],
+      controlSetRows: [[jsColumns], [jsDataMutator], [jsTooltip], [jsOnclickHref]],
     },
   ],
   controlOverrides: {

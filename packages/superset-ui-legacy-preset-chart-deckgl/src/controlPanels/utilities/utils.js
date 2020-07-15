@@ -47,6 +47,7 @@ export function formatSelectOptionsForRange(start, end) {
   // formatSelectOptionsForRange(1, 5)
   // returns [[1,1], [2,2], [3,3], [4,4], [5,5]]
   const options = [];
+  // eslint-disable-next-line no-plusplus
   for (let i = start; i <= end; i++) {
     options.push([i, i.toString()]);
   }
@@ -63,12 +64,11 @@ export function getDatasourceParameter(datasourceId, datasourceType) {
 
 export function getParam(name) {
   /* eslint no-useless-escape: 0 */
-  const formattedName = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-  const regex = new RegExp('[\\?&]' + formattedName + '=([^&#]*)');
+  const formattedName = name.replace(/\[/, '\\[').replace(/]/, '\\]');
+  const regex = new RegExp(`[\\?&]${formattedName}=([^&#]*)`);
+  // eslint-disable-next-line no-restricted-globals
   const results = regex.exec(location.search);
-  return results === null
-    ? ''
-    : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
 
 export function mainMetric(savedMetrics) {

@@ -17,31 +17,29 @@
  * under the License.
  */
 export function columnChoices(datasource) {
-    if (datasource && datasource.columns) {
-      return datasource.columns
-        .map(col => [col.column_name, col.verbose_name || col.column_name])
-        .sort((opt1, opt2) =>
-          opt1[1].toLowerCase() > opt2[1].toLowerCase() ? 1 : -1,
-        );
-    }
-    return [];
-}  
+  if (datasource && datasource.columns) {
+    return datasource.columns
+      .map(col => [col.column_name, col.verbose_name || col.column_name])
+      .sort((opt1, opt2) => (opt1[1].toLowerCase() > opt2[1].toLowerCase() ? 1 : -1));
+  }
+  return [];
+}
 
 // input choices & options
 export const D3_FORMAT_OPTIONS = [
-    ['SMART_NUMBER', 'Adaptative formating'],
-    ['~g', 'Original value'],
-    [',d', ',d (12345.432 => 12,345)'],
-    ['.1s', '.1s (12345.432 => 10k)'],
-    ['.3s', '.3s (12345.432 => 12.3k)'],
-    [',.1%', ',.1% (12345.432 => 1,234,543.2%)'],
-    ['.3%', '.3% (12345.432 => 1234543.200%)'],
-    ['.4r', '.4r (12345.432 => 12350)'],
-    [',.3f', ',.3f (12345.432 => 12,345.432)'],
-    ['+,', '+, (12345.432 => +12,345.432)'],
-    ['$,.2f', '$,.2f (12345.432 => $12,345.43)'],
-    ['DURATION', 'Duration in ms (66000 => 1m 6s)'],
-    ['DURATION_SUB', 'Duration in ms (100.40008 => 100ms 400µs 80ns)'],
-  ];
+  ['SMART_NUMBER', 'Adaptative formating'],
+  ['~g', 'Original value'],
+  [',d', ',d (12345.432 => 12,345)'],
+  ['.1s', '.1s (12345.432 => 10k)'],
+  ['.3s', '.3s (12345.432 => 12.3k)'],
+  [',.1%', ',.1% (12345.432 => 1,234,543.2%)'],
+  ['.3%', '.3% (12345.432 => 1234543.200%)'],
+  ['.4r', '.4r (12345.432 => 12350)'],
+  [',.3f', ',.3f (12345.432 => 12,345.432)'],
+  ['+,', '+, (12345.432 => +12,345.432)'],
+  ['$,.2f', '$,.2f (12345.432 => $12,345.43)'],
+  ['DURATION', 'Duration in ms (66000 => 1m 6s)'],
+  ['DURATION_SUB', 'Duration in ms (100.40008 => 100ms 400µs 80ns)'],
+];
 
 export const PRIMARY_COLOR = { r: 0, g: 122, b: 135, a: 1 };
