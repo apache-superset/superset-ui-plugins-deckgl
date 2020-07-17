@@ -43,3 +43,10 @@ export const D3_FORMAT_OPTIONS = [
 ];
 
 export const PRIMARY_COLOR = { r: 0, g: 122, b: 135, a: 1 };
+
+export default {
+  default: null,
+  mapStateToProps: state => ({
+    choices: state.datasource ? state.datasource.time_grain_sqla.filter(o => o[0] !== null) : null,
+  }),
+};

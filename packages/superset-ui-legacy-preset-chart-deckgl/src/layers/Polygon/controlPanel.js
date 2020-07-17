@@ -17,8 +17,8 @@
  * under the License.
  */
 import { t } from '@superset-ui/translation';
-import timeGrainSqlaAnimationOverrides from './timeGrainSqlaAnimationOverrides';
-import { formatSelectOptions } from './utilities/utils';
+import timeGrainSqlaAnimationOverrides from '../../utilities/controls';
+import { formatSelectOptions } from '../../utilities/utils';
 import {
   filterNulls,
   autozoom,
@@ -41,7 +41,7 @@ import {
   lineType,
   reverseLongLat,
   mapboxStyle,
-} from './Shared_DeckGL';
+} from '../../utilities/Shared_DeckGL';
 
 export default {
   controlPanelSections: [

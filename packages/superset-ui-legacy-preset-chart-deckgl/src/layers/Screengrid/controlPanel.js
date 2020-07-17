@@ -18,7 +18,7 @@
  */
 import { t } from '@superset-ui/translation';
 import { validateNonEmpty } from '@superset-ui/validator';
-import timeGrainSqlaAnimationOverrides from './timeGrainSqlaAnimationOverrides';
+import timeGrainSqlaAnimationOverrides from '../../utilities/controls';
 import {
   filterNulls,
   autozoom,
@@ -30,7 +30,7 @@ import {
   viewport,
   spatial,
   mapboxStyle,
-} from './Shared_DeckGL';
+} from '../../utilities/Shared_DeckGL';
 
 export default {
   controlPanelSections: [

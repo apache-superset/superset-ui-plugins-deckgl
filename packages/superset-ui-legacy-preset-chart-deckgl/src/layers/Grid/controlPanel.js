@@ -18,47 +18,45 @@
  */
 import { t } from '@superset-ui/translation';
 import { validateNonEmpty } from '@superset-ui/validator';
-import { viewport, mapboxStyle } from './Shared_DeckGL';
+import {
+  filterNulls,
+  autozoom,
+  jsColumns,
+  jsDataMutator,
+  jsTooltip,
+  jsOnclickHref,
+  extruded,
+  gridSize,
+  viewport,
+  spatial,
+  mapboxStyle,
+} from '../../utilities/Shared_DeckGL';
 
 export default {
   controlPanelSections: [
     {
-      label: t('Map'),
+      label: t('Query'),
       expanded: true,
+      controlSetRows: [[spatial, 'size'], ['row_limit', filterNulls], ['adhoc_filters']],
+    },
+    {
+      label: t('Map'),
       controlSetRows: [
         [mapboxStyle, viewport],
-        [
-          {
-            name: 'deck_slices',
-            config: {
-              type: 'SelectAsyncControl',
-              multi: true,
-              label: t('deck.gl charts'),
-              validators: [validateNonEmpty],
-              default: [],
-              description: t('Pick a set of deck.gl charts to layer on top of one another'),
-              dataEndpoint: '/sliceasync/api/read?_flt_0_viz_type=deck_&_flt_7_viz_type=deck_multi',
-              placeholder: t('Select charts'),
-              onAsyncErrorMessage: t('Error while fetching charts'),
-              mutator: data => {
-                if (!data || !data.result) {
-                  return [];
-                }
-                return data.result.map(o => ({
-                  value: o.id,
-                  label: o.slice_name,
-                }));
-              },
-            },
-          },
-          null,
-        ],
+        ['color_picker', autozoom],
+        [gridSize, extruded],
       ],
     },
     {
-      label: t('Query'),
-      expanded: true,
-      controlSetRows: [['adhoc_filters']],
+      label: t('Advanced'),
+      controlSetRows: [[jsColumns], [jsDataMutator], [jsTooltip], [jsOnclickHref]],
     },
   ],
+  controlOverrides: {
+    size: {
+      label: t('Height'),
+      description: t('Metric used to control height'),
+      validators: [validateNonEmpty],
+    },
+  },
 };

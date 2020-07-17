@@ -18,8 +18,8 @@
  */
 import { t } from '@superset-ui/translation';
 import { validateNonEmpty, legacyValidateInteger } from '@superset-ui/validator';
-import { formatSelectOptions } from './utilities/utils';
-import { columnChoices } from './utilities/controls';
+import { formatSelectOptions } from '../../utilities/utils';
+import { columnChoices } from '../../utilities/controls';
 import {
   filterNulls,
   jsColumns,
@@ -33,7 +33,7 @@ import {
   extruded,
   viewport,
   mapboxStyle,
-} from './Shared_DeckGL';
+} from '../../utilities/Shared_DeckGL';
 
 export default {
   controlPanelSections: [

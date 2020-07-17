@@ -30,7 +30,7 @@ import {
   lineType,
   reverseLongLat,
   mapboxStyle,
-} from './Shared_DeckGL';
+} from '../../utilities/Shared_DeckGL';
 
 export default {
   controlPanelSections: [

@@ -18,9 +18,11 @@
  */
 import { t } from '@superset-ui/translation';
 import { validateNonEmpty, legacyValidateInteger } from '@superset-ui/validator';
-import timeGrainSqlaAnimationOverrides from './timeGrainSqlaAnimationOverrides';
-import { columnChoices, PRIMARY_COLOR } from './utilities/controls';
-import { formatSelectOptions } from './utilities/utils';
+import timeGrainSqlaAnimationOverrides, {
+  columnChoices,
+  PRIMARY_COLOR,
+} from '../../utilities/controls';
+import { formatSelectOptions } from '../../utilities/utils';
 import {
   filterNulls,
   autozoom,
@@ -33,7 +35,7 @@ import {
   legendPosition,
   viewport,
   mapboxStyle,
-} from './Shared_DeckGL';
+} from '../../utilities/Shared_DeckGL';
 
 export default {
   controlPanelSections: [
