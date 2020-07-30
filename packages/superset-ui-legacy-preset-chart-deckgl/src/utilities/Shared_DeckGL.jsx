@@ -22,7 +22,6 @@
 import React from 'react';
 import { t } from '@superset-ui/translation';
 import { validateNonEmpty } from '@superset-ui/validator';
-// eslint-disable-next-line import/no-unresolved
 import { ColumnOption } from '@superset-ui/chart-controls';
 import { D3_FORMAT_OPTIONS, columnChoices, PRIMARY_COLOR } from './controls';
 
