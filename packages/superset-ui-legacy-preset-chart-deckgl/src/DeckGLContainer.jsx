@@ -51,6 +51,8 @@ const defaultProps = {
 };
 
 class DeckGLContainer extends React.Component {
+  currentViewPort = null;
+
   constructor(props) {
     super(props);
     this.tick = this.tick.bind(this);
@@ -61,6 +63,7 @@ class DeckGLContainer extends React.Component {
       tooltip: null,
       viewState: props.viewport,
     };
+    this.currentViewPort = props.viewport;
   }
 
   componentWillUnmount() {
@@ -79,7 +82,12 @@ class DeckGLContainer extends React.Component {
       if (setCV) {
         setCV('viewport', this.state.viewState);
       }
+
       this.setState({ lastUpdate: null });
+    }
+    if (this.currentViewPort != null && this.currentViewPort !== this.props.viewport) {
+      this.currentViewPort = this.props.viewport;
+      this.setState({ viewState: this.props.viewport });
     }
   }
 
