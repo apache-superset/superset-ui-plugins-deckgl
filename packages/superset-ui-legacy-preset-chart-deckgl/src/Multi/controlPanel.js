@@ -18,9 +18,11 @@
  */
 import { t, validateNonEmpty } from '@superset-ui/core';
 import { viewport, mapboxStyle } from '../utilities/Shared_DeckGL';
+import { sections } from '@superset-ui/chart-controls';
 
 export default {
   controlPanelSections: [
+    sections.legacyRegularTime,
     {
       label: t('Map'),
       expanded: true,
