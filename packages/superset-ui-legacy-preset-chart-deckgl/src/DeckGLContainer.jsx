@@ -114,10 +114,12 @@ class DeckGLContainer extends React.Component {
             layers={layers}
             viewState={viewState}
             onViewStateChange={this.onViewStateChange}
+            glOptions={{ preserveDrawingBuffer: true }}
           >
             <StaticMap
               mapStyle={this.props.mapStyle}
               mapboxApiAccessToken={this.props.mapboxApiAccessToken}
+              preserveDrawingBuffer
             />
           </DeckGL>
           {children}
