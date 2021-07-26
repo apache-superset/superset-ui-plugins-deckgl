@@ -25,7 +25,7 @@ const metadata = new ChartMetadata({
   category: t('Map'),
   credits: ['https://uber.github.io/deck.gl'],
   description:
-    'Plot the distance (like flight paths) between origin and destination.',
+    t('Plot the distance (like flight paths) between origin and destination.'),
   name: t('deck.gl Arc'),
   thumbnail,
   useLegacyApi: true,
