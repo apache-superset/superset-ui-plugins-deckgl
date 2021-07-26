@@ -25,7 +25,7 @@ const metadata = new ChartMetadata({
   category: t('Map'),
   credits: ['https://uber.github.io/deck.gl'],
   description:
-    'Aggregates data within the boundary of grid cells and maps the aggregated values to a dynamic color scale',
+    t('Aggregates data within the boundary of grid cells and maps the aggregated values to a dynamic color scale'),
   name: t('deck.gl Screen Grid'),
   thumbnail,
   useLegacyApi: true,
