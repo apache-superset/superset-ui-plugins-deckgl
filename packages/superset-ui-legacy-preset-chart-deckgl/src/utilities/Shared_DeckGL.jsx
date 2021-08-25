@@ -203,7 +203,7 @@ export const coordinateBounds = (
   description = 'The bounds of the image',
 ) => {
   return {
-    name: name,
+    name,
     config: {
       type: 'TextControl',
       label: t(label),
