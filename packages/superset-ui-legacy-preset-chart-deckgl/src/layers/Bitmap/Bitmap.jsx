@@ -19,64 +19,12 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BitmapLayer, GeoJsonLayer } from 'deck.gl';
+import { BitmapLayer } from 'deck.gl';
 // TODO import geojsonExtent from 'geojson-extent';
 
 import DeckGLContainer from '../../DeckGLContainer';
-import { hexToRGB } from '../../utils/colors';
-import sandboxedEval from '../../utils/sandbox';
 import { commonLayerProps } from '../common';
 import TooltipRow from '../../TooltipRow';
-
-const propertyMap = {
-  fillColor: 'fillColor',
-  color: 'fillColor',
-  fill: 'fillColor',
-  'fill-color': 'fillColor',
-  strokeColor: 'strokeColor',
-  'stroke-color': 'strokeColor',
-  'stroke-width': 'strokeWidth',
-};
-
-const alterProps = (props, propOverrides) => {
-  const newProps = {};
-  Object.keys(props).forEach(k => {
-    if (k in propertyMap) {
-      newProps[propertyMap[k]] = props[k];
-    } else {
-      newProps[k] = props[k];
-    }
-  });
-  if (typeof props.fillColor === 'string') {
-    newProps.fillColor = hexToRGB(props.fillColor);
-  }
-  if (typeof props.strokeColor === 'string') {
-    newProps.strokeColor = hexToRGB(props.strokeColor);
-  }
-
-  return {
-    ...newProps,
-    ...propOverrides,
-  };
-};
-let features;
-const recurseGeoJson = (node, propOverrides, extraProps) => {
-  if (node && node.features) {
-    node.features.forEach(obj => {
-      recurseGeoJson(obj, propOverrides, node.extraProps || extraProps);
-    });
-  }
-  if (node && node.geometry) {
-    const newNode = {
-      ...node,
-      properties: alterProps(node.properties, propOverrides),
-    };
-    if (!newNode.extraProps) {
-      newNode.extraProps = extraProps;
-    }
-    features.push(newNode);
-  }
-};
 
 function setTooltipContent(o) {
   return (
@@ -94,21 +42,15 @@ function setTooltipContent(o) {
   );
 }
 
-export function getLayer(formData, payload, onAddFilter, setTooltip) {
+export function getLayer(formData, setTooltip) {
   const fd = formData;
-  const {
-    top_left_latitude_bound,
-    top_left_longitude_bound,
-    bottom_right_latitude_bound,
-    bottom_right_longitude_bound,
-  } = fd;
   return new BitmapLayer({
     id: `bitmap-layer-${fd.slice_id}`,
     bounds: [
-      top_left_longitude_bound,
-      top_left_latitude_bound,
+      fd.top_left_longitude_bound,
+      fd.top_left_latitude_bound,
       bottom_right_longitude_bound,
-      bottom_right_latitude_bound,
+      fd.bottom_right_latitude_bound,
     ],
     image: fd.image_url,
     ...commonLayerProps(fd, setTooltip, setTooltipContent),
@@ -137,14 +79,14 @@ class DeckGLGeoJson extends React.Component {
   };
 
   render() {
-    const { formData, payload, setControlValue, onAddFilter, viewport } = this.props;
+    const { formData, payload, setControlValue, viewport } = this.props;
 
     // TODO get this to work
     // if (formData.autozoom) {
     //   viewport = common.fitViewport(viewport, geojsonExtent(payload.data.features));
     // }
 
-    const layer = getLayer(formData, payload, onAddFilter, this.setTooltip);
+    const layer = getLayer(formData, this.setTooltip);
 
     return (
       <DeckGLContainer

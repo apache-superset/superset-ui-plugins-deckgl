@@ -17,30 +17,8 @@
  * under the License.
  */
 import { sections } from '@superset-ui/chart-controls';
-import { t, legacyValidateInteger, isFeatureEnabled, FeatureFlag } from '@superset-ui/core';
-import { formatSelectOptions } from '../../utilities/utils';
-import {
-  filterNulls,
-  jsColumns,
-  jsDataMutator,
-  jsTooltip,
-  jsOnclickHref,
-  fillColorPicker,
-  strokeColorPicker,
-  filled,
-  stroked,
-  extruded,
-  viewport,
-  mapboxStyle,
-  geojsonColumn,
-  imageUrl,
-  coordinateBounds,
-} from '../../utilities/Shared_DeckGL';
-import { dndGeojsonColumn } from '../../utilities/sharedDndControls';
-
-const geojson = isFeatureEnabled(FeatureFlag.ENABLE_EXPLORE_DRAG_AND_DROP)
-  ? dndGeojsonColumn
-  : geojsonColumn;
+import { t } from '@superset-ui/core';
+import { viewport, mapboxStyle, imageUrl, coordinateBounds } from '../../utilities/Shared_DeckGL';
 
 export default {
   controlPanelSections: [
