@@ -109,10 +109,10 @@ export function createDeckGLComponent(getLayer, getPoints) {
         new BitmapLayer({
           id: `bitmap-layer-${fd.slice_id}`,
           bounds: [
-            fd.top_left_longitude_bound,
-            fd.top_left_latitude_bound,
-            fd.bottom_right_longitude_bound,
-            fd.bottom_right_latitude_bound,
+            parseFloat(fd.top_left_longitude_bound),
+            parseFloat(fd.top_left_latitude_bound),
+            parseFloat(fd.bottom_right_longitude_bound),
+            parseFloat(fd.bottom_right_latitude_bound),
           ],
           image: fd.image_url,
         }),
