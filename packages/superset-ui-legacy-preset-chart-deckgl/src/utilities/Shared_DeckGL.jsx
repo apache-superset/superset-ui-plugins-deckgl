@@ -206,7 +206,7 @@ export const coordinateBounds = (
     name: name,
     config: {
       type: 'TextControl',
-      label: t(name),
+      label: t(label),
       renderTrigger: true,
       isInt: false,
       default: 0,

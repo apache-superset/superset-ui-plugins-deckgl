@@ -49,7 +49,7 @@ export function getLayer(formData, setTooltip) {
     bounds: [
       fd.top_left_longitude_bound,
       fd.top_left_latitude_bound,
-      bottom_right_longitude_bound,
+      fd.bottom_right_longitude_bound,
       fd.bottom_right_latitude_bound,
     ],
     image: fd.image_url,
@@ -62,11 +62,8 @@ const propTypes = {
   payload: PropTypes.object.isRequired,
   setControlValue: PropTypes.func.isRequired,
   viewport: PropTypes.object.isRequired,
-  onAddFilter: PropTypes.func,
 };
-const defaultProps = {
-  onAddFilter() {},
-};
+const defaultProps = {};
 
 class DeckGLGeoJson extends React.Component {
   containerRef = React.createRef();
