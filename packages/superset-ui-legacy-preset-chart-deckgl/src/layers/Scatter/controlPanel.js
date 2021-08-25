@@ -34,6 +34,7 @@ import {
   pointRadiusFixed,
   multiplier,
   mapboxStyle,
+  bitmapLayerSection,
 } from '../../utilities/Shared_DeckGL';
 
 export default {
@@ -122,6 +123,7 @@ export default {
         [multiplier, null],
       ],
     },
+    bitmapLayerSection,
     {
       label: t('Point Color'),
       controlSetRows: [

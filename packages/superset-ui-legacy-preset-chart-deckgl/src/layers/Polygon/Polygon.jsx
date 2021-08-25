@@ -38,6 +38,7 @@ import sandboxedEval from '../../utils/sandbox';
 import getPointsFromPolygon from '../../utils/getPointsFromPolygon';
 // eslint-disable-next-line import/extensions
 import fitViewport from '../../utils/fitViewport';
+import { BitmapLayer } from 'deck.gl';
 
 const DOUBLE_CLICK_TRESHOLD = 250; // milliseconds
 
@@ -231,6 +232,31 @@ class DeckGLPolygon extends React.Component {
     });
   }
 
+  injectBitmapLayer = layers => {
+    const fd = this.props.formData;
+    if (
+      !fd.top_left_longitude_bound ||
+      !fd.top_left_latitude_bound ||
+      !fd.bottom_right_longitude_bound ||
+      !fd.bottom_right_latitude_bound
+    ) {
+      return [layers];
+    }
+    return [
+      new BitmapLayer({
+        id: `bitmap-layer-${fd.slice_id}`,
+        bounds: [
+          fd.top_left_longitude_bound,
+          fd.top_left_latitude_bound,
+          fd.bottom_right_longitude_bound,
+          fd.bottom_right_latitude_bound,
+        ],
+        image: fd.image_url,
+      }),
+      ...layers,
+    ];
+  };
+
   getLayers(values) {
     if (this.props.payload.data.features === undefined) {
       return [];
@@ -255,7 +281,7 @@ class DeckGLPolygon extends React.Component {
       filters,
     );
 
-    return [layer];
+    return this.injectBitmapLayer([layer]);
   }
 
   setTooltip = tooltip => {

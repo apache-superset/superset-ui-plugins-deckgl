@@ -35,6 +35,7 @@ import {
   legendPosition,
   viewport,
   mapboxStyle,
+  bitmapLayerSection,
 } from '../../utilities/Shared_DeckGL';
 
 export default {
@@ -124,6 +125,7 @@ export default {
         [legendFormat, null],
       ],
     },
+    bitmapLayerSection,
     {
       label: t('Advanced'),
       controlSetRows: [[jsColumns], [jsDataMutator], [jsTooltip], [jsOnclickHref]],

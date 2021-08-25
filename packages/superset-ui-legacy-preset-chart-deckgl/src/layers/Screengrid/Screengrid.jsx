@@ -31,6 +31,7 @@ import { commonLayerProps } from '../common';
 import TooltipRow from '../../TooltipRow';
 // eslint-disable-next-line import/extensions
 import fitViewport from '../../utils/fitViewport';
+import { BitmapLayer } from 'deck.gl';
 
 function getPoints(data) {
   return data.map(d => d.position);
@@ -156,6 +157,31 @@ class DeckGLScreenGrid extends React.PureComponent {
     });
   }
 
+  injectBitmapLayer = layers => {
+    const fd = this.props.formData;
+    if (
+      !fd.top_left_longitude_bound ||
+      !fd.top_left_latitude_bound ||
+      !fd.bottom_right_longitude_bound ||
+      !fd.bottom_right_latitude_bound
+    ) {
+      return [layers];
+    }
+    return [
+      new BitmapLayer({
+        id: `bitmap-layer-${fd.slice_id}`,
+        bounds: [
+          fd.top_left_longitude_bound,
+          fd.top_left_latitude_bound,
+          fd.bottom_right_longitude_bound,
+          fd.bottom_right_latitude_bound,
+        ],
+        image: fd.image_url,
+      }),
+      ...layers,
+    ];
+  };
+
   getLayers(values) {
     const filters = [];
 
@@ -174,7 +200,7 @@ class DeckGLScreenGrid extends React.PureComponent {
       filters,
     );
 
-    return [layer];
+    return this.injectBitmapLayer([layer]);
   }
 
   setTooltip = tooltip => {

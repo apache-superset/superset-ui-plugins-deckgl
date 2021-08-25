@@ -34,6 +34,7 @@ import { getPlaySliderParams } from './utils/time';
 import sandboxedEval from './utils/sandbox';
 // eslint-disable-next-line import/extensions
 import fitViewport from './utils/fitViewport';
+import { BitmapLayer } from 'deck.gl';
 
 const { getScale } = CategoricalColorNamespace;
 
@@ -149,6 +150,31 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
     };
   }
 
+  injectBitmapLayer = layers => {
+    const fd = this.props.formData;
+    if (
+      !fd.top_left_longitude_bound ||
+      !fd.top_left_latitude_bound ||
+      !fd.bottom_right_longitude_bound ||
+      !fd.bottom_right_latitude_bound
+    ) {
+      return [layers];
+    }
+    return [
+      new BitmapLayer({
+        id: `bitmap-layer-${fd.slice_id}`,
+        bounds: [
+          parseFloat(fd.top_left_longitude_bound),
+          parseFloat(fd.top_left_latitude_bound),
+          parseFloat(fd.bottom_right_longitude_bound),
+          parseFloat(fd.bottom_right_latitude_bound),
+        ],
+        image: fd.image_url,
+      }),
+      ...layers,
+    ];
+  };
+
   getLayers(values) {
     const { getLayer, payload, formData: fd, onAddFilter } = this.props;
     let features = payload.data.features ? [...payload.data.features] : [];
@@ -180,7 +206,9 @@ export default class CategoricalDeckGLContainer extends React.PureComponent {
       data: { ...payload.data, features },
     };
 
-    return [getLayer(fd, filteredPayload, onAddFilter, this.setTooltip, this.props.datasource)];
+    return this.injectBitmapLayer([
+      getLayer(fd, filteredPayload, onAddFilter, this.setTooltip, this.props.datasource),
+    ]);
   }
 
   // eslint-disable-next-line class-methods-use-this

@@ -33,6 +33,7 @@ import {
   viewport,
   mapboxStyle,
   geojsonColumn,
+  bitmapLayerSection,
 } from '../../utilities/Shared_DeckGL';
 import { dndGeojsonColumn } from '../../utilities/sharedDndControls';
 
@@ -77,6 +78,7 @@ export default {
         ],
       ],
     },
+    bitmapLayerSection,
     {
       label: t('Advanced'),
       controlSetRows: [[jsColumns], [jsDataMutator], [jsTooltip], [jsOnclickHref]],

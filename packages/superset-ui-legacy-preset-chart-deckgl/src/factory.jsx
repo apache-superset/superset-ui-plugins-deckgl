@@ -28,6 +28,7 @@ import DeckGLContainer from './DeckGLContainer';
 import CategoricalDeckGLContainer from './CategoricalDeckGLContainer';
 // eslint-disable-next-line import/extensions
 import fitViewport from './utils/fitViewport';
+import { BitmapLayer } from 'deck.gl';
 
 const propTypes = {
   datasource: PropTypes.object.isRequired,
@@ -94,6 +95,31 @@ export function createDeckGLComponent(getLayer, getPoints) {
       }
     };
 
+    injectBitmapLayer = layers => {
+      const fd = this.props.formData;
+      if (
+        !fd.top_left_longitude_bound ||
+        !fd.top_left_latitude_bound ||
+        !fd.bottom_right_longitude_bound ||
+        !fd.bottom_right_latitude_bound
+      ) {
+        return [layers];
+      }
+      return [
+        new BitmapLayer({
+          id: `bitmap-layer-${fd.slice_id}`,
+          bounds: [
+            fd.top_left_longitude_bound,
+            fd.top_left_latitude_bound,
+            fd.bottom_right_longitude_bound,
+            fd.bottom_right_latitude_bound,
+          ],
+          image: fd.image_url,
+        }),
+        ...layers,
+      ];
+    };
+
     render() {
       const { formData, payload, setControlValue, height, width } = this.props;
       const { layer, viewport } = this.state;
@@ -103,7 +129,7 @@ export function createDeckGLComponent(getLayer, getPoints) {
           ref={this.containerRef}
           mapboxApiAccessToken={payload.data.mapboxApiKey}
           viewport={viewport}
-          layers={[layer]}
+          layers={this.injectBitmapLayer([layer])}
           mapStyle={formData.mapbox_style}
           setControlValue={setControlValue}
           width={width}

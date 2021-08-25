@@ -407,3 +407,19 @@ export const geojsonColumn = {
     }),
   },
 };
+
+export const bitmapLayerSection = {
+  label: t('Bitmap cover'),
+  expanded: true,
+  controlSetRows: [
+    [imageUrl],
+    [
+      coordinateBounds('top_left_latitude_bound', 'Top left latitude bound'),
+      coordinateBounds('top_left_longitude_bound', 'Top left longitude bound'),
+    ],
+    [
+      coordinateBounds('bottom_right_latitude_bound', 'Bottom right latitude bound'),
+      coordinateBounds('bottom_right_longitude_bound', 'Bottom right longitude bound'),
+    ],
+  ],
+};

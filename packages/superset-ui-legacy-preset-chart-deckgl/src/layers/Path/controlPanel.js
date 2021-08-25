@@ -31,6 +31,7 @@ import {
   lineType,
   reverseLongLat,
   mapboxStyle,
+  bitmapLayerSection,
 } from '../../utilities/Shared_DeckGL';
 import { dndLineColumn } from '../../utilities/sharedDndControls';
 
@@ -68,6 +69,7 @@ export default {
         [reverseLongLat, autozoom],
       ],
     },
+    bitmapLayerSection,
     {
       label: t('Advanced'),
       controlSetRows: [[jsColumns], [jsDataMutator], [jsTooltip], [jsOnclickHref]],

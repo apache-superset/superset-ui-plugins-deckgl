@@ -31,6 +31,7 @@ import {
   mapboxStyle,
   spatial,
   viewport,
+  bitmapLayerSection,
 } from '../../utilities/Shared_DeckGL';
 
 export default {
@@ -78,6 +79,7 @@ export default {
         ],
       ],
     },
+    bitmapLayerSection,
     {
       label: t('Advanced'),
       controlSetRows: [[jsColumns], [jsDataMutator], [jsTooltip], [jsOnclickHref]],
