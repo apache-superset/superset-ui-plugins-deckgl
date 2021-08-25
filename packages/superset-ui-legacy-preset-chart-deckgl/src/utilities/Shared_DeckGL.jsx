@@ -185,6 +185,36 @@ export const lineColumn = {
   },
 };
 
+export const imageUrl = {
+  name: 'image_url',
+  config: {
+    type: 'TextControl',
+    label: t('Image URL'),
+    renderTrigger: true,
+    isInt: false,
+    default: '',
+    description: t('The image source of the image to be rendered'),
+  },
+};
+
+export const coordinateBounds = (
+  name = 'coordinate_bound',
+  label = 'Coordinate bound',
+  description = 'The bounds of the image',
+) => {
+  return {
+    name: name,
+    config: {
+      type: 'TextControl',
+      label: t(name),
+      renderTrigger: true,
+      isInt: false,
+      default: 0,
+      description: t(description),
+    },
+  };
+};
+
 export const lineWidth = {
   name: 'line_width',
   config: {
