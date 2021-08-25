@@ -27,6 +27,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CategoricalColorNamespace } from '@superset-ui/core';
+import { BitmapLayer } from 'deck.gl';
 import AnimatableDeckGLContainer from './AnimatableDeckGLContainer';
 import Legend from './components/Legend';
 import { hexToRGB } from './utils/colors';
@@ -34,7 +35,6 @@ import { getPlaySliderParams } from './utils/time';
 import sandboxedEval from './utils/sandbox';
 // eslint-disable-next-line import/extensions
 import fitViewport from './utils/fitViewport';
-import { BitmapLayer } from 'deck.gl';
 
 const { getScale } = CategoricalColorNamespace;
 

@@ -24,11 +24,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 
+import { BitmapLayer } from 'deck.gl';
 import DeckGLContainer from './DeckGLContainer';
 import CategoricalDeckGLContainer from './CategoricalDeckGLContainer';
 // eslint-disable-next-line import/extensions
 import fitViewport from './utils/fitViewport';
-import { BitmapLayer } from 'deck.gl';
 
 const propTypes = {
   datasource: PropTypes.object.isRequired,

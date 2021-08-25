@@ -22,7 +22,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ScreenGridLayer } from 'deck.gl';
+import { ScreenGridLayer, BitmapLayer } from 'deck.gl';
 import { t } from '@superset-ui/core';
 import AnimatableDeckGLContainer from '../../AnimatableDeckGLContainer';
 import { getPlaySliderParams } from '../../utils/time';
@@ -31,7 +31,6 @@ import { commonLayerProps } from '../common';
 import TooltipRow from '../../TooltipRow';
 // eslint-disable-next-line import/extensions
 import fitViewport from '../../utils/fitViewport';
-import { BitmapLayer } from 'deck.gl';
 
 function getPoints(data) {
   return data.map(d => d.position);
