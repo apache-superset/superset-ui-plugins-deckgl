@@ -3787,7 +3787,7 @@
     telejson "^3.2.0"
     util-deprecate "^1.0.2"
 
-"@superset-ui/chart-controls@^0.18.0":
+"@superset-ui/chart-controls@0.x.x":
   version "0.18.0"
   resolved "https://registry.yarnpkg.com/@superset-ui/chart-controls/-/chart-controls-0.18.0.tgz#26813cb04a50771cd44de94373ad9bb7339e0ab9"
   integrity sha512-FLSRN0uJW0W5p+oy+0qxDVaAxtpU/nyHzsfP3EIcUfhPFEtlEeZ4H2Uk6ZdMaVh7x/66jR8SwwlqI0k9vBMz1w==
@@ -3810,7 +3810,7 @@
     conventional-changelog-cli "^2.0.12"
     cz-conventional-changelog "^2.1.0"
 
-"@superset-ui/core@0.18.0", "@superset-ui/core@^0.18.0":
+"@superset-ui/core@0.18.0", "@superset-ui/core@0.x.x":
   version "0.18.0"
   resolved "https://registry.yarnpkg.com/@superset-ui/core/-/core-0.18.0.tgz#1c1449f1d27b09287488f09a1e8f604abf5e37bb"
   integrity sha512-VD1bC5odnD+fyKydPjXomuwJZ983Gjwcc1LY+bi24/I+AfW+7Xd20iARXxkhjOF7ezbWb4I+X1vxsDbgLStpKQ==
