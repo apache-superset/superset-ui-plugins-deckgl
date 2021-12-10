@@ -5,6 +5,8 @@
 [![David](https://img.shields.io/david/dev/apache-superset/superset-ui-plugins-deckgl.svg?style=flat-square)](https://david-dm.org/apache-superset/superset-ui-plugins-deckgl?type=dev)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/4d054ead-0e76-4e03-b684-797ca5924161/deploy-status)](https://app.netlify.com/sites/superset-ui-plugins-deckgl/deploys)
 
+**🔴This repo has been archived, and is no longer receiving issues/pull requests. Please open all new issues/PRs on the [Apache Superset GitHub repo](http://github.com/apache/superset).🔴**
+
 ## Demo (Storybook)
 
 Most recent release: https://apache-superset.github.io/superset-ui-plugins-deckgl/
